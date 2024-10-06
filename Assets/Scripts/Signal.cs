@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Signal : MonoBehaviour
+[CreateAssetMenu]
+public class Signal : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<SignalListener> listeners = new List<SignalListener>();
+
+    public void Raise()
     {
-        
+        for (int i = listeners.Count - 1; 1 >= 0; i--)
+        {
+            listeners[i].OnSignalRaised();
+        }
+    }
+    public void RegisterListener(SignalListener listener)
+    {
+        listeners.Add(listener);
+    }
+    public void DeRegisterListener(SignalListener listener)
+    {
+        listeners.Remove(listener);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
