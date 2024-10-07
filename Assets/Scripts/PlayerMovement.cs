@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Animation")]
+    private Animator animator; 
+
     [Header("Movement")]
 
     private float moveSpeed;
@@ -29,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("KeyBinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode crouchKey = KeyCode.C;
+    public KeyCode SlideKey = KeyCode.LeftControl;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -72,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         startYscale = transform.localScale.y;
+
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -92,7 +98,11 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+       
+
     }
+  
     private void FixedUpdate()
     {
         MovePlayer();
@@ -128,48 +138,73 @@ public class PlayerMovement : MonoBehaviour
     }
     private void StateHandler()
     {
-        //mode Wallrunning
+       /* //mode Wallrunning
         if (wallrunning)
         {
             state = MovementState.wallrunning;
+            animator.SetBool("isWallRunning", true);
             desiredMoveSpeed = wallRunSpeed;
         }
+        else
+        {
+            animator.SetBool("isWallRunning", false);
+        }*/
 
         // mode - Sliding 
-        if (sliding)
+       /* if (sliding)
         {
             state = MovementState.sliding;
+            animator.SetBool("isSliding", true);
 
             if (OnSlope() && rb.velocity.y < 0.1f)
                 desiredMoveSpeed = slideSpeed;
             else
                 desiredMoveSpeed = sprintSpeed;
         }
+        else
+        {
+            animator.SetBool("isWallRunning", false);
+        }*/
+
 
 
         // mode - crouching 
-        else if (Input.GetKey(crouchKey))
+        if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
+            animator.SetBool("isCrouching", true);
         }
+        else
+        {
+            animator.SetBool("isCrouching", false);
+        }
+
         //mode Sprint
-        else if (grounded && Input.GetKey(sprintKey))
+        if (grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
+            animator.SetBool("isSprinting", true);
+        }
+        else
+        {
+            animator.SetBool("isSprinting", false);
         }
 
+
         // mode walking 
-        else if (grounded)
+        if (grounded)
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
+            animator.SetBool("isWalking", true);
         }
 
         else
         {
             state = MovementState.air;
+            animator.SetBool("isWalking", false);
         }
 
         //check if desiredMoveSpeed has Changed drastically 

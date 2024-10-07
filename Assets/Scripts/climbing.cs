@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class Climbing : MonoBehaviour
 {
-    [Header("References")]
+    /*[Header("References")]
     public Transform orientation;
     public Rigidbody rb;
-    public LayerMask whatIsWall;
+    //public LayerMask whatIsWall;
 
-    private bool climbing;
+    //private bool climbing;
 
-    [Header("Climbing")]
-    public float climbSpeed;
-    public float maxClimpTime;
-    private float climbTimer;
+   // [Header("Climbing")]
+    //public float climbSpeed;
+   // public float maxClimpTime;
+    //private float climbTimer;
 
     [Header("Detection")]
-    public float detectionLength;
-    public float sphereCastRadius;
-    public float maxWallLookAngle;
-    public float wallLookAngle;
+   // public float detectionLength;
+   // public float sphereCastRadius;
+   // public float maxWallLookAngle;
+    //public float wallLookAngle;
 
-    private RaycastHit frontWallHit;
-    private bool wallFront;
+   // private RaycastHit frontWallHit;
+    //private bool wallFront;
 
-    private void WallCheck()
+    /*private void WallCheck()
     {
         wallFront = Physics.SphereCast(transform.position, sphereCastRadius, orientation.forward, out frontWallHit, detectionLength, whatIsWall);
         wallLookAngle = Vector3.Angle(orientation.forward, -frontWallHit.normal);
-    }
+    }*/
 
-    private void StartClimbing()
+    /*private void StartClimbing()
     {
         climbing = true;
 
@@ -48,5 +48,5 @@ public class Climbing : MonoBehaviour
         climbing = false;
 
         // particle effect 
-    }
+    }*/
 }
