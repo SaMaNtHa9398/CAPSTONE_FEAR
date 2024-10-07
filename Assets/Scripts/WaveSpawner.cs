@@ -9,7 +9,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private GameObject spawnPoint;
 
     public Wave[] waves;
-    public int health; 
+   // public int health; 
     public int CurrentWaveIndex = 0;
 
     private bool readyToCountDown;
@@ -69,15 +69,15 @@ public class WaveSpawner : MonoBehaviour
         [HideInInspector] public int enemiesLeft;
     }
 
-    public void TakeDamage(int Damage)
+   /* public void TakeDamage(int Damage)
     {
         health -= Damage;
 
+        // shader change to show red 
+
+
         if (health <= 0) Invoke(nameof(DestorySpawner), 0.5f);
-        else
-        {
-            // get hit animaiton 
-        }
+        
 
     }
 
@@ -85,8 +85,8 @@ public class WaveSpawner : MonoBehaviour
     {
         GetComponent<LootBag>().InstantiateLoot(transform.position); 
         Destroy(gameObject);
-       
+         Debug.Log("Spawner Destroyed");
 
-    }
+    }*/
 
 }

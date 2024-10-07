@@ -44,7 +44,7 @@ public class CustomBullets : MonoBehaviour
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemy);
         for (int i = 0; i < enemies.Length; i++)
         {
-            enemies[i].GetComponent<EnemyAI>().TakeDamage(explosionDamage);
+            enemies[i].GetComponent<EnemyHealth>().TakeDamage(explosionDamage);
             if (enemies[i].GetComponent<Rigidbody>())
                 enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
         }

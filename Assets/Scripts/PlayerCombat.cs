@@ -8,7 +8,10 @@ public class PlayerCombat : MonoBehaviour
     public Animator animator;
     public Transform attackPoint; 
     public float attackRange;
-    public LayerMask Enemy; 
+    public LayerMask Enemy;
+
+    public int attackDamageMeleePunch; 
+
 
     private void Update()
     {
@@ -28,7 +31,8 @@ public class PlayerCombat : MonoBehaviour
         // Damage them 
         foreach(Collider enemy in hitEnemies)
         {
-            Debug.Log("we hit" + enemy.name); 
+            Debug.Log("we hit" + enemy.name);
+            enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamageMeleePunch); 
 
         }
     }

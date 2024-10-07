@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    public Signal context;
+    /*public Signal context;
  
     public bool playerInRange;
   
@@ -38,6 +38,14 @@ public class Interactable : MonoBehaviour
         
         }
     
-    }
+    }*/
 
+    public float radius = 3f;
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+    }
 }

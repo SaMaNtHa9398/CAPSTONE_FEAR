@@ -7,7 +7,7 @@ public class EnemyAI : MonoBehaviour
 
     public Transform player;
 
-    public float health;
+    //public float health;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -100,25 +100,29 @@ public class EnemyAI : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int Damage)
+    /*public void TakeDamage(int Damage)
     {
         health -= Damage;
 
-        if (health <= 0) Invoke(nameof(DestoryEnemy), 0.5f);
-        else
-        {
-            // get hit animaiton 
-        }
+        // player hurt animation
+
+
+        if (health <= 0) Invoke(nameof(DestoryEnemy), 0.2f);
+        
 
     }
 
     public void DestoryEnemy()
     {
+        // die animation 
+
+        // loot drop 
+       
         //GetComponent<LootBag>().InstantiateLoot(transform.position); 
         Destroy(gameObject);
         waveSpawner.waves[waveSpawner.CurrentWaveIndex].enemiesLeft--;
-
-    }
+        Debug.Log("Enemy died");
+    }*/
 
     private void OnDrawGizmosSelected()
     {
