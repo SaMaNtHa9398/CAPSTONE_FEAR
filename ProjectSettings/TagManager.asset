@@ -17,9 +17,9 @@ TagManager:
   - WhatIsEnemy
   - WhatIsWall
   - WhatIsPlayer
-  - 
-  - 
-  - 
+  - Interactable
+  - Item
+  - LootExplosion
   - 
   - 
   - 

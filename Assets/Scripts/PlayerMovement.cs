@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     [Header("Animation")]
     private Animator animator; 
 
@@ -98,10 +99,9 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
-
-       
-
     }
+
+  
   
     private void FixedUpdate()
     {
