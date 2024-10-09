@@ -68,14 +68,14 @@ public class HoldToInteract : MonoBehaviour
         
         if (Physics.Raycast(ray, out hitInfo, 1f, layerMask))
         {
-            var hitChest = hitInfo.collider.GetComponent<ChestInteract>();
+            var hitChest = hitInfo.collider.GetComponent<Chest>();
             if (hitChest == null)
             {
                 itemBeingOpened = null;
             }
             else if (hitChest != null && hitChest != itemBeingOpened)
             {
-               // itemBeingOpened = hitChest;
+                itemBeingOpened = hitChest;
                 itemNameText.text = "Opening " + itemBeingOpened.gameObject.name;
 
             }
