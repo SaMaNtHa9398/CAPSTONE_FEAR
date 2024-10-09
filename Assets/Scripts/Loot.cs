@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Loot : ScriptableObject
 {
-    public MeshFilter lootPrefab;
+    public GameObject lootPrefab;
     public string lootName;
     public int dropChance;
   

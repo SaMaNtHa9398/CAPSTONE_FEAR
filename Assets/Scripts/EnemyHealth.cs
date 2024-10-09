@@ -27,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0)
         {
             health = 0; 
+            LootDrop(); 
             DestoryEnemy(); 
         } 
 
@@ -40,9 +41,14 @@ public class EnemyHealth : MonoBehaviour
         // died animation 
 
         // loot drop 
-        //GetComponent<LootBag>().InstantiateLoot(transform.position);
+        
+        
         Destroy(gameObject);
         Debug.Log("Enemy Element Destroyed");
+    }
 
+    private void LootDrop()
+    {
+        GetComponent<LootBag>().InstantiateLoot(transform.position);
     }
 }

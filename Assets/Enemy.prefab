@@ -613,6 +613,7 @@ GameObject:
   - component: {fileID: 1619228705671502443}
   - component: {fileID: 8770100206536778117}
   - component: {fileID: 125734444}
+  - component: {fileID: 436656697879294851}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -731,3 +732,21 @@ MonoBehaviour:
   slider: {fileID: 2068653838}
   target: {fileID: 7289243053277426300}
   offset: {x: 0, y: 0, z: 0}
+--- !u!114 &436656697879294851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7289243053277426289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20018a823ac62a940af57b6dd49a7291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 7439361684918068908, guid: 517e0052d1083e04a88a80e2203aa885, type: 3}
+  lootlist:
+  - {fileID: 11400000, guid: b63f00250aeb4b649b56847630dfcfd2, type: 2}
+  SpawnRadius: 4
+  SpawnMax: 6
+  NumberOfItem: 2

@@ -6,12 +6,14 @@ public class LootBag : MonoBehaviour
 {
     public GameObject droppedItemPrefab;
     public List<Loot> lootlist = new List<Loot>();
+    public int SpawnRadius, SpawnMax;
+    public int NumberOfItem; 
      
-    Loot GetDroppedItems()
- 
+    List<Loot> GetDroppedItems()
     {
         int randomNumber = Random.Range(1, 101); //1-100
         List<Loot> PossibleItems = new List<Loot>();
+        
         foreach(Loot item in lootlist)
         {
             if(randomNumber <= item.dropChance)
@@ -23,30 +25,39 @@ public class LootBag : MonoBehaviour
 
         if (PossibleItems.Count > 0)
         {
-            Loot droppedItem = PossibleItems[Random.Range(0, PossibleItems.Count)];
-            return droppedItem;
+            //Loot droppedItem = PossibleItems[Random.Range(0, PossibleItems.Count)];
+            //return droppedItem;
+            return PossibleItems; 
         }
         Debug.Log("No loot dropped");
         return null;
     }
 
-   public void InstantiateLoot(Vector3 spawnposition)
-   {
-        Loot droppedItem = GetDroppedItems();
- 
-        if (droppedItem != null)
-        {
-            GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnposition, Quaternion.identity);
+    public void InstantiateLoot(Vector3 spawnposition)
+    {
+        List<Loot> droppedItems = GetDroppedItems();
 
-            lootGameObject.GetComponent<MeshFilter>().mesh = droppedItem.lootPrefab.GetComponent<MeshFilter>().mesh;
 
-            float dropForce = 300f;
+       
+            if (droppedItems != null && droppedItems.Count > 0)
+            {
+                for (int i = 0; i < Mathf.Min(NumberOfItem, droppedItems.Count); i++) 
+                {
 
-            Vector3 dropDirection = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+                    Loot selectLoot = droppedItems[Random.Range(0, droppedItems.Count)];
+                    droppedItemPrefab = selectLoot.lootPrefab;
 
-            lootGameObject.GetComponent<Rigidbody>().AddForce(dropDirection * dropForce, ForceMode.Impulse);
-        }
-   }
+                    GameObject lootgameObject = Instantiate(droppedItemPrefab, spawnposition, Quaternion.identity);
 
+                    float dropForce = 0f;
+
+                    Vector3 dropDirection = new Vector3(Random.Range(SpawnRadius, SpawnMax), 0, Random.Range(SpawnRadius, SpawnMax));
+
+                    lootgameObject.GetComponent<Rigidbody>().AddForce(dropDirection * dropForce, ForceMode.Impulse);
+
+                }
+            }
+         
+    }
 }
 

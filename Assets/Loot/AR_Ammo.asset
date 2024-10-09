@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1eb788a1fe57e458599323f0752236, type: 3}
+  m_Name: AR_Ammo
+  m_EditorClassIdentifier: 
+  lootPrefab: {fileID: 8239911432786897140, guid: f5e340e30c8b5394a9dc5ab1384865fb, type: 3}
+  lootName: AR_Ammo
+  dropChance: 30
