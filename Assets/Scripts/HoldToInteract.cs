@@ -7,6 +7,11 @@ using UnityEngine.UI;
 public class HoldToInteract : MonoBehaviour
 {
     [SerializeField]
+    GameObject token;
+    [SerializeField]
+    public HoldToInteract hold;  
+   
+    [SerializeField]
     private Camera cameraInteract;
     [SerializeField]
     private LayerMask layerMask;
@@ -21,11 +26,13 @@ public class HoldToInteract : MonoBehaviour
     private Chest itemBeingOpened;
     private float currentPickupTimeElapsed;
 
-    private Animator animator; 
+    private Animator animator;
+
+    private bool isChestOpened = false;
     private void Update()
     {
         SelectItemBeingPickedUpFromRay();
-
+        token.SetActive(false);
         if (HasItemTargetted())
         {
             pickupImageRoot.gameObject.SetActive(true);
@@ -34,7 +41,7 @@ public class HoldToInteract : MonoBehaviour
             else currentPickupTimeElapsed = 0f;
 
             UpdatePickupProgessImage();
-        }
+                    }
         else
         {
             pickupImageRoot.gameObject.SetActive(false);
@@ -50,16 +57,30 @@ public class HoldToInteract : MonoBehaviour
     {
         float pct = currentPickupTimeElapsed / pickupTime;
         pickupProgressImage.fillAmount = pct;
+        isChestOpened = false;
     }
 
     private void IncrementPickUpProgressandTryComplete()
     {
         currentPickupTimeElapsed += Time.deltaTime;
-        if (currentPickupTimeElapsed >= pickupTime)
-            OpenChest();
+        isChestOpened = false; 
+        if (currentPickupTimeElapsed >= pickupTime && !isChestOpened)
+        {
+           
+            isChestOpened = true;
+            currentPickupTimeElapsed = 0f; 
+            IntermediateStep(); 
+        }    
 
     }
 
+    private void IntermediateStep()
+    {
+        if (isChestOpened)
+        {
+            OpenChest();
+        }
+    }
     private void SelectItemBeingPickedUpFromRay()
     {
         Ray ray = cameraInteract.ViewportPointToRay(Vector3.one / 2f);
@@ -72,16 +93,18 @@ public class HoldToInteract : MonoBehaviour
             if (hitChest == null)
             {
                 itemBeingOpened = null;
+                isChestOpened = false;
             }
             else if (hitChest != null && hitChest != itemBeingOpened)
             {
                 itemBeingOpened = hitChest;
                 itemNameText.text = "Opening " + itemBeingOpened.gameObject.name;
-
+                isChestOpened = false;
             }
         }
         else
         {
+            isChestOpened = false;
             itemBeingOpened = null;
         }
 
@@ -91,7 +114,11 @@ public class HoldToInteract : MonoBehaviour
     {
         // play animation 
 
+       
         // expel loot 
-        GetComponent<LootBag>().InstantiateLoot(transform.position);
+        GetComponentInChildren<LootBag>().InstantiateLoot(transform.position);
+        token.SetActive(true);
+        hold.enabled = !hold.enabled;
+        pickupImageRoot.gameObject.SetActive(false);
     }
 }

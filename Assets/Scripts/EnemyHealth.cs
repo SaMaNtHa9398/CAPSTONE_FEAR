@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public Animator animator; 
     public float health;
     public float maxHealth;
+    public GameObject gameObject; 
 
     [SerializeField] FloatingStats stats; 
     private void Start()
@@ -20,9 +22,9 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int Damage)
     {
         health -= Damage;
-        stats.UpdateHealthBar(health, maxHealth); 
+        stats.UpdateHealthBar(health, maxHealth);
         // hurt animation  
-
+       
 
         if (health <= 0)
         {
@@ -30,6 +32,10 @@ public class EnemyHealth : MonoBehaviour
             LootDrop(); 
             DestoryEnemy(); 
         } 
+        else
+        {
+            animator.SetTrigger("Hurt");
+        }
 
             
 
@@ -39,7 +45,7 @@ public class EnemyHealth : MonoBehaviour
     {
 
         // died animation 
-
+        animator.SetBool("IsDead",true);
         // loot drop 
         
         

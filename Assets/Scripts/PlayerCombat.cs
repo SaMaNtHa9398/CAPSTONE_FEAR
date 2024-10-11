@@ -10,14 +10,20 @@ public class PlayerCombat : MonoBehaviour
     public float attackRange;
     public LayerMask Enemy;
 
-    public int attackDamageMeleePunch; 
+    public int attackDamageMeleePunch;
 
+    public float attackRate = 3f;
+    float nextAttackTime = 0f; 
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if(Time.time >= nextAttackTime)
         {
-            Attack(); 
+            if(Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                Attack();
+                nextAttackTime = Time.time + 1f / attackRate; 
+            }
         }
     }
 

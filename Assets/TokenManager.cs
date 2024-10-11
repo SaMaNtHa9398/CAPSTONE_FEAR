@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest : MonoBehaviour
+public class TokenManager : MonoBehaviour
 {
-   // HoldToInteract hold; 
+    public int Count; 
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +14,6 @@ public class Chest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
 }

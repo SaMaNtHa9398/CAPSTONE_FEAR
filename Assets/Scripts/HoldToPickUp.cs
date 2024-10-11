@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class HoldToPickUp : MonoBehaviour
 {
     [SerializeField]
-    private Camera camera;
+    private Camera PickUpcamera;
     [SerializeField]
     private LayerMask layerMask;
     [SerializeField]
@@ -61,7 +61,7 @@ public class HoldToPickUp : MonoBehaviour
 
     private void SelectItemBeingPickedUpFromRay()
     {
-        Ray ray = camera.ViewportPointToRay(Vector3.one / 2f);
+        Ray ray = PickUpcamera.ViewportPointToRay(Vector3.one / 2f);
         Debug.DrawRay(ray.origin, ray.direction * 2f, Color.red);
         RaycastHit hitInfo; 
         if(Physics.Raycast(ray, out hitInfo, 2f, layerMask))

@@ -6,12 +6,14 @@ public class LootBag : MonoBehaviour
 {
     public GameObject droppedItemPrefab;
     public List<Loot> lootlist = new List<Loot>();
-    public int SpawnRadius, SpawnMax;
-    public int NumberOfItem; 
+    public float SpawnRadius, SpawnMax;
+    public int NumberOfItem;
+    public int spawnMaxNumb, spawnMinNumb; 
      
     List<Loot> GetDroppedItems()
     {
-        int randomNumber = Random.Range(1, 101); //1-100
+        int randomNumber = Random.Range(spawnMinNumb, spawnMaxNumb); //1-100
+        Debug.Log(randomNumber);
         List<Loot> PossibleItems = new List<Loot>();
         
         foreach(Loot item in lootlist)

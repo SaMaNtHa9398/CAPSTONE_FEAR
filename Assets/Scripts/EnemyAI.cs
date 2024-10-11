@@ -25,6 +25,8 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    public Animator animator; 
+
     private WaveSpawner waveSpawner;
     private void Start()
     {
@@ -84,7 +86,10 @@ public class EnemyAI : MonoBehaviour
 
         if (alreadyAttacked)
         {
+
             ///attack code
+            animator.SetBool("PlayerInRange", true);
+                
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
 
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);

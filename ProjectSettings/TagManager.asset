@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Enemy
   - Environment
+  - Token
+  - Guns
+  - Melee
+  - Puzzle
+  - 'Ammo '
+  - StackablesItems
   layers:
   - Default
   - TransparentFX
