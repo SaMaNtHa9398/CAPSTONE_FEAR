@@ -15,3 +15,9 @@ MonoBehaviour:
   lootPrefab: {fileID: 8663608864246301014, guid: 2ad31f843b4b9414383fb3601ee97614, type: 3}
   lootName: MediPen
   dropChance: 30
+  description: will restore 25% of your health  health when consumed
+  icon: {fileID: 0}
+  healthconsumable: 0
+  nutritionalValue: 25
+  shieldConsumable: 0
+  shieldValue: 0

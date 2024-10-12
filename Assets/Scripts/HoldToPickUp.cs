@@ -21,6 +21,7 @@ public class HoldToPickUp : MonoBehaviour
     private Item itemBeingPickedUp;
     private float currentPickupTimeElapsed;
 
+    public ToolTipManager ToolTipManager; 
     private void Update()
     {
         SelectItemBeingPickedUpFromRay(); 
@@ -55,7 +56,11 @@ public class HoldToPickUp : MonoBehaviour
     {
         currentPickupTimeElapsed += Time.deltaTime;
         if (currentPickupTimeElapsed >= pickupTime)
+        {
+            ToolTipManager._instance.HidToolTip(); 
             MoveItemIntoInventory(); 
+        }
+    
 
     }    
 

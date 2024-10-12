@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
+    //https://www.youtube.com/watch?v=sPiVz1k-fEs&list=WL&index=12&t=923s
 
     public Animator animator;
     public Transform attackPoint; 

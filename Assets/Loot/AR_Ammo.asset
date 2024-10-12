@@ -15,3 +15,9 @@ MonoBehaviour:
   lootPrefab: {fileID: 8239911432786897140, guid: f5e340e30c8b5394a9dc5ab1384865fb, type: 3}
   lootName: AR_Ammo
   dropChance: 30
+  description: 'A messure of 23 bullets. just shy of a full magazine. '
+  icon: {fileID: 0}
+  healthconsumable: 0
+  nutritionalValue: 0
+  shieldConsumable: 0
+  shieldValue: 0

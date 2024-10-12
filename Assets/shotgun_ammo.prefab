@@ -12,11 +12,13 @@ GameObject:
   - component: {fileID: 7761225969204516775}
   - component: {fileID: 482095409775375836}
   - component: {fileID: 3924821492021896335}
-  - component: {fileID: -4378418724856555046}
   - component: {fileID: -4937428222149951782}
+  - component: {fileID: 3502531758586087781}
+  - component: {fileID: 6115651852857898761}
+  - component: {fileID: 2821577580963112737}
   m_Layer: 11
   m_Name: shotgun_ammo
-  m_TagString: Untagged
+  m_TagString: ShotGun Ammo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,14 +30,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4616240880284209462}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.21294503, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.000000022089306, y: 0.21294503, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &7761225969204516775
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -102,19 +104,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &-4378418724856555046
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4616240880284209462}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.015674341, y: 0.040788144, z: 0.014907195}
-  m_Center: {x: -0.000000003259629, y: -9.313226e-10, z: 0}
 --- !u!114 &-4937428222149951782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +116,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0dcbe20d8f695479c6daa69eaa0442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3502531758586087781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4616240880284209462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f169a8829487a449aec2e14b1a23492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: 'A pack of 6 bullets enough for one reload of your weapon. '
+  itemtitle: 'Shot Gun Ammo '
+  itemtip: 'Can take someone''s head of with that. '
+  titleBoarderColor: {fileID: 0}
+  descriptionBoarderColor: {fileID: 0}
+  itemIcon: {fileID: 0}
+--- !u!114 &6115651852857898761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4616240880284209462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672dd03617c12a74383371739f68407f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 3924821492021896335}
+  explosion: {fileID: 0}
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 128
+  bounciness: 0
+  useGravity: 1
+  explosionDamage: 30
+  explosionRange: 4
+  explosionForce: 1
+  maxCollisions: 1
+  maxLifetime: 5
+  explodeOnTouch: 0
+--- !u!135 &2821577580963112737
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4616240880284209462}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.020394078
+  m_Center: {x: -0.000000003259629, y: -9.313228e-10, z: 0}

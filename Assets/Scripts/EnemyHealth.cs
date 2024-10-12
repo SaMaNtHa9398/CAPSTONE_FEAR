@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public Animator animator; 
     public float health;
     public float maxHealth;
-    public GameObject gameObject; 
+    public GameObject enemygameObject; 
 
     [SerializeField] FloatingStats stats; 
     private void Start()
@@ -45,11 +45,11 @@ public class EnemyHealth : MonoBehaviour
     {
 
         // died animation 
-        animator.SetBool("IsDead",true);
+        animator.SetBool("IsDeath",true);
         // loot drop 
         
         
-        Destroy(gameObject);
+        Destroy(enemygameObject);
         Debug.Log("Enemy Element Destroyed");
     }
 

@@ -10,8 +10,11 @@ TagManager:
   - Guns
   - Melee
   - Puzzle
-  - 'Ammo '
   - StackablesItems
+  - CheckPoint
+  - 'Smg Ammo '
+  - Ar Ammo
+  - ShotGun Ammo
   layers:
   - Default
   - TransparentFX

@@ -12,13 +12,18 @@ public class GunSystem : MonoBehaviour
 
     // Gun Stats 
     public int damage;
-    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    public float timeBetweenShooting, spread, range, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
 
     // bools 
     bool shooting, readyToShoot, reloading;
+
+    //RELOAD
+    public int maxAmmo = 10;
+    private int currentAmmo;
+    public float reloadTime = 1f; 
 
     //reference 
     public Camera fpsCam;
@@ -34,6 +39,10 @@ public class GunSystem : MonoBehaviour
 
     public bool allowInvoke = true;
 
+    private void Start()
+    {
+        currentAmmo = maxAmmo; 
+    }
     private void Awake()
     {
         bulletsLeft = magazineSize;
@@ -45,8 +54,13 @@ public class GunSystem : MonoBehaviour
 
 
         //set text variable
-        if (ammo != null)
-            ammo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+
+        if (currentAmmo <= 0)
+        {
+            Reload();
+            if (ammo != null) { ammo.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap); }
+            return;
+        }
     }
     private void MyInput()
     {
@@ -54,9 +68,9 @@ public class GunSystem : MonoBehaviour
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         //reloading
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload();
+        //if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload();
         //reloading automatically when trying to shoot without ammo 
-        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
+        //if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
 
         //shoot
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
@@ -64,6 +78,12 @@ public class GunSystem : MonoBehaviour
             bulletsShot = 0;
             Shoot();
         }
+    }
+
+    void Reload()
+    {
+        Debug.Log("Reloading");
+        currentAmmo = maxAmmo; 
     }
     private void Shoot()
     {
@@ -132,7 +152,7 @@ public class GunSystem : MonoBehaviour
         readyToShoot = true;
         allowInvoke = true;
     }
-    private void Reload()
+    /*private void Reload()
     {
         reloading = true;
         Invoke("reloadFinished", reloadTime);
@@ -142,5 +162,5 @@ public class GunSystem : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
-    }
+    }*/
 }

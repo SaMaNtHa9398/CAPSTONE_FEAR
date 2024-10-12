@@ -16,6 +16,10 @@ public class EnemyAI : MonoBehaviour
     bool walkPointSet;
     public float walkPointRange;
 
+   
+    public Transform enemyAttackPoint;
+    public int AttackDamage; 
+
     //Attacking 
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -28,6 +32,10 @@ public class EnemyAI : MonoBehaviour
     public Animator animator; 
 
     private WaveSpawner waveSpawner;
+
+    //player health reference 
+    //public PlayerHealthScript playerHealth; 
+
     private void Start()
     {
         waveSpawner = GetComponentInParent<WaveSpawner>();
@@ -86,17 +94,33 @@ public class EnemyAI : MonoBehaviour
 
         if (alreadyAttacked)
         {
+            if (CompareTag("MeleeEnemy"))
+            {
 
-            ///attack code
-            animator.SetBool("PlayerInRange", true);
+                ///attack code melee
+                animator.SetBool("PlayerInRange", true);
+                Collider[] hitplayer = Physics.OverlapSphere(enemyAttackPoint.position, attackRange, whatIsPlayer); 
+
+                foreach(Collider player in hitplayer)
+                {
+                    Debug.Log("we hit" + player.name);
+                    player.GetComponent<PlayerHealthScript>().TakeDamage(AttackDamage);
+                }
+
+                alreadyAttacked = true;
+                Invoke(nameof(ResetAttack), timeBetweenAttacks); 
+            }
+            else if(CompareTag("RangeEnemy"))
+            {
+                Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+
+                rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+                rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+                ///
+                alreadyAttacked = true;
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            }
                 
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-            ///
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
 
@@ -105,7 +129,7 @@ public class EnemyAI : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    /*public void TakeDamage(int Damage)
+   /* public void TakeDamage(int Damage)
     {
         health -= Damage;
 
@@ -115,18 +139,6 @@ public class EnemyAI : MonoBehaviour
         if (health <= 0) Invoke(nameof(DestoryEnemy), 0.2f);
         
 
-    }
-
-    public void DestoryEnemy()
-    {
-        // die animation 
-
-        // loot drop 
-       
-        //GetComponent<LootBag>().InstantiateLoot(transform.position); 
-        Destroy(gameObject);
-        waveSpawner.waves[waveSpawner.CurrentWaveIndex].enemiesLeft--;
-        Debug.Log("Enemy died");
     }*/
 
     private void OnDrawGizmosSelected()
@@ -137,4 +149,6 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawSphere(transform.position, sightRange);
 
     }
+
+   
 }
