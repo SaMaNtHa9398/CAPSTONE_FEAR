@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ToolTip : MonoBehaviour
 {
     //https://www.youtube.com/watch?v=y2N_J391ptg 
-    public string message, itemtitle,itemtip;
+   /* public string message, itemtitle,itemtip;
      
     public Image titleBoarderColor;
     public Image descriptionBoarderColor;
@@ -19,5 +19,5 @@ public class ToolTip : MonoBehaviour
     private void OnMouseExit()
     {
         ToolTipManager._instance.HidToolTip(); 
-    }
+    }*/
 }

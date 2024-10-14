@@ -28,14 +28,14 @@ public class PlayerHealthScript : MonoBehaviour
 
     }
 
-    public void TakeDamage(int Damage)
+    public void TakeMeleeDamage(int MeleeAttackDamage)
     {
         if (Shield == MaxShield && Health == maxHealth)
         {
-            Shield -= Damage;
+            Shield -= MeleeAttackDamage;
             if(Shield <= 0 && Health == maxHealth)
             {
-                Health -= Damage;
+                Health -= MeleeAttackDamage;
                 if(Health <= 0)
                 {
                     // if the health bar = 0 then the player will died and respawn, they will leave a grave behind as well where all their stuff is 
@@ -48,7 +48,26 @@ public class PlayerHealthScript : MonoBehaviour
 
         }
      }
+    public void TakeRangeDamage(int RangeAttackDamage)
+    {
+        if (Shield == MaxShield && Health == maxHealth)
+        {
+            Shield -= RangeAttackDamage;
+            if (Shield <= 0 && Health == maxHealth)
+            {
+                Health -= RangeAttackDamage;
+                if (Health <= 0)
+                {
+                    // if the health bar = 0 then the player will died and respawn, they will leave a grave behind as well where all their stuff is 
+                    Invoke("Respawn", respawnTime);
+                    respawnUI.SetActive(true);
 
+                }
+
+            }
+
+        }
+    }
     public void Respawn()
     {
 

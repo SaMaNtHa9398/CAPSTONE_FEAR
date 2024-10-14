@@ -15,6 +15,9 @@ TagManager:
   - 'Smg Ammo '
   - Ar Ammo
   - ShotGun Ammo
+  - MeleeEnemy
+  - RangeEnemy
+  - CanPickUp
   layers:
   - Default
   - TransparentFX
@@ -29,7 +32,7 @@ TagManager:
   - Interactable
   - Item
   - Chest
-  - 
+  - Hold
   - 
   - 
   - 

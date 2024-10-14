@@ -19,9 +19,9 @@ public class EnemyHealth : MonoBehaviour
     {
         stats = GetComponentInChildren<FloatingStats>(); 
     }
-    public void TakeDamage(int Damage)
+    public void TakeDamage(float EnemyDamage)
     {
-        health -= Damage;
+        health -= EnemyDamage;
         stats.UpdateHealthBar(health, maxHealth);
         // hurt animation  
        

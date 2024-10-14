@@ -10,7 +10,8 @@ public class EnemyAI : MonoBehaviour
     //public float health;
 
     public LayerMask whatIsGround, whatIsPlayer;
-
+   
+   
     //patroling
     public Vector3 walkpoint;
     bool walkPointSet;
@@ -18,7 +19,8 @@ public class EnemyAI : MonoBehaviour
 
    
     public Transform enemyAttackPoint;
-    public int AttackDamage; 
+    public int MeleeAttackDamage;
+    public int RangeAttackDamage; 
 
     //Attacking 
     public float timeBetweenAttacks;
@@ -89,7 +91,8 @@ public class EnemyAI : MonoBehaviour
     {
         // make sure enemy doesnt move 
         agent.SetDestination(transform.position);
-
+        playerInAttackRange = true;
+        animator.SetBool("PlayerInAttackRange", true);
         transform.LookAt(player);
 
         if (alreadyAttacked)
@@ -98,13 +101,13 @@ public class EnemyAI : MonoBehaviour
             {
 
                 ///attack code melee
-                animator.SetBool("PlayerInRange", true);
+               
                 Collider[] hitplayer = Physics.OverlapSphere(enemyAttackPoint.position, attackRange, whatIsPlayer); 
 
                 foreach(Collider player in hitplayer)
                 {
                     Debug.Log("we hit" + player.name);
-                    player.GetComponent<PlayerHealthScript>().TakeDamage(AttackDamage);
+                    player.GetComponent<PlayerHealthScript>().TakeRangeDamage(RangeAttackDamage);
                 }
 
                 alreadyAttacked = true;
@@ -116,12 +119,13 @@ public class EnemyAI : MonoBehaviour
 
                 rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
                 rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-                ///
+                player.GetComponent<PlayerHealthScript>().TakeMeleeDamage(MeleeAttackDamage);
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
-            }
                 
+            }
         }
+            animator.SetBool("PlayerInAttackRange", false);
     }
 
     private void ResetAttack()

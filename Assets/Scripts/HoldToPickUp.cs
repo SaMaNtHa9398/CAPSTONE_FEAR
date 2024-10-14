@@ -57,7 +57,7 @@ public class HoldToPickUp : MonoBehaviour
         currentPickupTimeElapsed += Time.deltaTime;
         if (currentPickupTimeElapsed >= pickupTime)
         {
-            ToolTipManager._instance.HidToolTip(); 
+           // ToolTipManager._instance.HidToolTip(); 
             MoveItemIntoInventory(); 
         }
     
