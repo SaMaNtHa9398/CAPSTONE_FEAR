@@ -7,20 +7,22 @@ namespace KeySystem
     public class KeyDoorController : MonoBehaviour
     {
         // public MeshRenderer meshrenderer;
-        private Animator doorAnim;
+       // private Animator doorAnim;
         //public Collider boxCollider; 
         private bool doorOpen = false;
-        [Header("Animation Names")]
-        [SerializeField] private string openAnimationName = "DoorOpen";
-        [SerializeField] private string closeAnimationName = "DoorClose";
+        //[Header("Animation Names")]
+       // [SerializeField] private string openAnimationName = "DoorOpen";
+        //[SerializeField] private string closeAnimationName = "DoorClose";
         [SerializeField] private int timeToShowUI = 1;
-        [SerializeField] private GameObject showDoorLockUI = null;
-        [SerializeField] private keyInventory _keyInventory = null;
+        public GameObject door; 
+       //[SerializeField] private GameObject showDoorLockUI = null;
+        [SerializeField] private KeyInventory _keyInventory = null;
         [SerializeField] private int waitTimer = 1;
         [SerializeField] private bool pauseInteraction = false;
         private void Awake()
         {
-            doorAnim = gameObject.GetComponent<Animator>();
+            //  doorAnim = gameObject.GetComponent<Animator>();
+            door.SetActive(true);
         }
         /*private void Start()
         {
@@ -54,26 +56,24 @@ namespace KeySystem
         {
             if (!doorOpen && !pauseInteraction)
             {
-                // meshrenderer.enabled = true;
-                //boxCollider.enabled = true;
-                doorAnim.Play(openAnimationName, 0, 0.0f);
+               
+                door.SetActive(false);
                 doorOpen = true;
                 StartCoroutine(PauseDoorInteraction());
             }
             else if (doorOpen && !pauseInteraction)
             {
-                //meshrenderer.enabled = false;
-                //boxCollider.enabled = false; 
-                doorAnim.Play(closeAnimationName, 0, 0.0f);
+           
+                door.SetActive(false); 
                 doorOpen = false;
                 StartCoroutine(PauseDoorInteraction());
             }
         }
         IEnumerator ShowDoorLocked()
         {
-            showDoorLockUI.SetActive(true);
+          //  showDoorLockUI.SetActive(true);
             yield return new WaitForSeconds(timeToShowUI);
-            showDoorLockUI.SetActive(false);
+            //showDoorLockUI.SetActive(false);
         }
     }
 }

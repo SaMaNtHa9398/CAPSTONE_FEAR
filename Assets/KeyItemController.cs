@@ -1,3 +1,4 @@
+using KeySystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,8 @@ public class KeyItemController : MonoBehaviour
 {
     [SerializeField] private bool Door1 = false;
     [SerializeField] private bool Door1key = false;
-    [SerializeField] private keyInventory _keyInventory = null;
-    private KeyDoorController doorObject;
+    [SerializeField] public KeyInventory _keyInventory = null;
+    public KeyDoorController doorObject;
     public GameObject door; 
     private void Start()
     {
@@ -21,14 +22,14 @@ public class KeyItemController : MonoBehaviour
     {
         if (Door1)
         {
-            door.SetActive(false); 
+            door.SetActive(true); 
         }
 
         else if (Door1key)
         {
             _keyInventory.hasDoor1Key = true;
-            gameObject.SetActive(false);
+            door.SetActive(false);
         }
     }
 }
-}
+

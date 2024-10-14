@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace KeySystem
 {
-    public class keyInventory : MonoBehaviour
+    public class KeyInventory : MonoBehaviour
     {
         public bool hasDoor1Key = false;
     }

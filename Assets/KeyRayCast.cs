@@ -50,8 +50,7 @@ public class KeyRayCast : MonoBehaviour
             }
         }
 
-        // }
-
+    
         void CrosshairChange(bool on)
         { // ! mean false 
             if (on && !doOnce)

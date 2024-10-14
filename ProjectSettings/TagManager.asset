@@ -18,6 +18,8 @@ TagManager:
   - MeleeEnemy
   - RangeEnemy
   - CanPickUp
+  - interactableTag
+  - InteractiveObject
   layers:
   - Default
   - TransparentFX
