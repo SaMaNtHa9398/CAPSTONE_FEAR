@@ -8,11 +8,13 @@ public class KeyItemController : MonoBehaviour
     [SerializeField] private bool Door1 = false;
     [SerializeField] private bool Door1key = false;
     [SerializeField] public KeyInventory _keyInventory = null;
-    public KeyDoorController doorObject;
-    public GameObject door; 
+   private KeyDoorController doorObject;
+
+   
+
     private void Start()
     {
-        door.SetActive(true); 
+       // door.SetActive(true); 
         if (Door1)
         {
             doorObject = GetComponent<KeyDoorController>();
@@ -22,14 +24,16 @@ public class KeyItemController : MonoBehaviour
     {
         if (Door1)
         {
-            door.SetActive(true); 
+            // door.SetActive(true);
+            doorObject.PlayAnimation();
         }
 
         else if (Door1key)
         {
             _keyInventory.hasDoor1Key = true;
-            door.SetActive(false);
+            gameObject.SetActive(false); 
         }
     }
+
 }
 

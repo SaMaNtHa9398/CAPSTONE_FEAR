@@ -7,8 +7,8 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
 {
     public ClickButton[] mybuttons;
     public List<int> colourList;
-    [SerializeField] private Animator doorAnim;
-    [SerializeField] private string openAnimationName = "DoorOpen";
+   // [SerializeField] private Animator doorAnim;
+  //  [SerializeField] private string openAnimationName = "DoorOpen";
     public float showtime = 0.5f;
     public float pausetime = 0.5f;
     public int endOf = 3;
@@ -16,13 +16,14 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
     public int playerLevel = 0;
     public bool robot = false;
     public bool player = false;
-
+    public GameObject trigger;
     private int myRandom;
     public GameObject door;
-    public Button StartButton;
-    public Text gameOver;
+    //public Button StartButton;
+    //public Text gameOver;
     public Text scoreText;
     [SerializeField] private int score;
+    
     private void Start()
     {
         for (int i = 0; i < mybuttons.Length; i++)
@@ -34,9 +35,11 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
         //for some reason when this is called the door would not open regardless of what happend previously
         // - really should have taken a video of that 
     }
-
+    
+   
     private void ButtonClicked(int _number)
     {
+       
         if (player)
         {
             if (_number == colourList[playerLevel])
@@ -63,10 +66,11 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
         if (score == endOf)
         {
             Debug.Log("GameOver");
-            StartButton.interactable = true;
+           // StartButton.interactable = true;
             robot = false;
             player = false;
-            doorAnim.Play(openAnimationName, 0, 0.0f);
+            //doorAnim.Play(openAnimationName, 0, 0.0f);
+            door.SetActive(false); 
         }
     }
 
@@ -74,11 +78,28 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
 
     private void Update()
     {
-        if (robot)
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit button;
+            if (Physics.Raycast(ray, out button))
+            {
+                for (int i = 0; i < mybuttons.Length; i++)
+                {
+                    if (button.collider.gameObject == mybuttons[i].gameObject)
+                    {
+                        ButtonClicked(i);
+                    }
+                }
+
+            }
+        }
+            if (robot)
         {
             robot = false;
             StartCoroutine(Robot());
         }
+
 
     }
     private IEnumerator Robot()
@@ -105,15 +126,15 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
         score = 0;
         playerLevel = 0;
         Level = 2;
-        gameOver.text = "";
-        scoreText.text = score.ToString();
-        StartButton.interactable = false;
+        //gameOver.text = "";
+       // scoreText.text = score.ToString();
+       //StartButton.interactable = false;
 
     }
     private void GameOver()
     {
-        gameOver.text = "Game Over";
-        StartButton.interactable = true;
+       // gameOver.text = "Game Over";
+        //StartButton.interactable = true;
         player = false;
     }
 }

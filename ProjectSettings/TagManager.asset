@@ -20,6 +20,7 @@ TagManager:
   - CanPickUp
   - interactableTag
   - InteractiveObject
+  - Trigger
   layers:
   - Default
   - TransparentFX

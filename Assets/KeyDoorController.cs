@@ -59,12 +59,12 @@ namespace KeySystem
                
                 door.SetActive(false);
                 doorOpen = true;
-                StartCoroutine(PauseDoorInteraction());
+                //StartCoroutine(PauseDoorInteraction());
             }
             else if (doorOpen && !pauseInteraction)
             {
            
-                door.SetActive(false); 
+                door.SetActive(true); 
                 doorOpen = false;
                 StartCoroutine(PauseDoorInteraction());
             }

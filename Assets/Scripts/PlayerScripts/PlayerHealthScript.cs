@@ -7,10 +7,10 @@ public class PlayerHealthScript : MonoBehaviour
 {
     public float Health;
     public float maxHealth;
-    public float Shield;
-    public float MaxShield; 
+   // public float Shield;
+   // public float MaxShield; 
     public Slider HealthSlider;
-    public Slider ShieldSlider;
+   // public Slider ShieldSlider;
     public RespawnScript respawning;
     public float respawnTime;
     public GameObject respawnUI;
@@ -18,23 +18,23 @@ public class PlayerHealthScript : MonoBehaviour
     private void Start()
     {
         respawnUI.SetActive(false);
-        maxHealth = Health;
-        MaxShield = Shield;
+       // maxHealth = Health;
+      //  MaxShield = Shield;
     }
     private void Update()
     {
-        HealthSlider.value = Mathf.Clamp(Health / maxHealth, 0, 1);
-        ShieldSlider.value = Mathf.Clamp(Shield / MaxShield, 0, 1);
+       HealthSlider.value = Mathf.Clamp(Health / maxHealth, 0, 1);
+      //  ShieldSlider.value = Mathf.Clamp(Shield / MaxShield, 0, 1);
 
     }
 
     public void TakeMeleeDamage(int MeleeAttackDamage)
     {
-        if (Shield == MaxShield && Health == maxHealth)
+       /* if (Shield == MaxShield && Health == maxHealth)
         {
             Shield -= MeleeAttackDamage;
             if(Shield <= 0 && Health == maxHealth)
-            {
+            {*/
                 Health -= MeleeAttackDamage;
                 if(Health <= 0)
                 {
@@ -44,17 +44,17 @@ public class PlayerHealthScript : MonoBehaviour
                     
                 }
 
-            }
+            //}
 
-        }
+        //}
      }
     public void TakeRangeDamage(int RangeAttackDamage)
     {
-        if (Shield == MaxShield && Health == maxHealth)
+       /* if (Shield == MaxShield && Health == maxHealth)
         {
             Shield -= RangeAttackDamage;
             if (Shield <= 0 && Health == maxHealth)
-            {
+            {*/
                 Health -= RangeAttackDamage;
                 if (Health <= 0)
                 {
@@ -64,9 +64,9 @@ public class PlayerHealthScript : MonoBehaviour
 
                 }
 
-            }
+           // }
 
-        }
+        //}
     }
     public void Respawn()
     {
