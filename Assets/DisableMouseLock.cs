@@ -14,6 +14,7 @@ public class DisableMouseLock : MonoBehaviour
     }
     private void Update()
     {
+         
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             IsMouseEnabled = true; 

@@ -351,4 +351,5 @@ public class NPC : MonoBehaviour
             playerInRange = false;
         }
     }*/
+
 }

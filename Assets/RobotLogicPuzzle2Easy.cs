@@ -7,8 +7,9 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
 {
     public ClickButton[] mybuttons;
     public List<int> colourList;
-   // [SerializeField] private Animator doorAnim;
-  //  [SerializeField] private string openAnimationName = "DoorOpen";
+    //[SerializeField] private Animator doorAnim;
+    //[SerializeField] private string openAnimationName = "DoorOpen";
+    
     public float showtime = 0.5f;
     public float pausetime = 0.5f;
     public int endOf = 3;
@@ -16,11 +17,11 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
     public int playerLevel = 0;
     public bool robot = false;
     public bool player = false;
-    public GameObject trigger;
+    //public GameObject trigger;
     private int myRandom;
     public GameObject door;
-    //public Button StartButton;
-    //public Text gameOver;
+    public Button StartButton;
+    public Text gameOver;
     public Text scoreText;
     [SerializeField] private int score;
     
@@ -66,7 +67,7 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
         if (score == endOf)
         {
             Debug.Log("GameOver");
-           // StartButton.interactable = true;
+            StartButton.interactable = true;
             robot = false;
             player = false;
             //doorAnim.Play(openAnimationName, 0, 0.0f);
@@ -78,17 +79,17 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit button;
-            if (Physics.Raycast(ray, out button))
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //RaycastHit button;
+            //if (Physics.Raycast(ray, out button))
             {
-                for (int i = 0; i < mybuttons.Length; i++)
+               // for (int i = 0; i < mybuttons.Length; i++)
                 {
-                    if (button.collider.gameObject == mybuttons[i].gameObject)
+                   // if (button.collider.gameObject == mybuttons[i].gameObject)
                     {
-                        ButtonClicked(i);
+                     //   ButtonClicked(i);
                     }
                 }
 
@@ -126,15 +127,16 @@ public class RobotLogicPuzzle2Easy : MonoBehaviour
         score = 0;
         playerLevel = 0;
         Level = 2;
-        //gameOver.text = "";
-       // scoreText.text = score.ToString();
-       //StartButton.interactable = false;
+        gameOver.text = "";
+        scoreText.text = score.ToString();
+        StartButton.interactable = false;
 
     }
     private void GameOver()
     {
-       // gameOver.text = "Game Over";
-        //StartButton.interactable = true;
+       gameOver.text = "Game Over";
+        StartButton.interactable = true;
         player = false;
     }
+   
 }

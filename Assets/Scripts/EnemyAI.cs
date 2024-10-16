@@ -19,8 +19,7 @@ public class EnemyAI : MonoBehaviour
 
    
     public Transform enemyAttackPoint;
-    public int MeleeAttackDamage;
-    public int RangeAttackDamage; 
+    public int Damage; 
 
     //Attacking 
     public float timeBetweenAttacks;
@@ -107,7 +106,7 @@ public class EnemyAI : MonoBehaviour
                 foreach(Collider player in hitplayer)
                 {
                     Debug.Log("we hit" + player.name);
-                    player.GetComponent<PlayerHealthScript>().TakeRangeDamage(RangeAttackDamage);
+                    player.GetComponent<PlayerHealthScript>().takeDamage(Damage);
                 }
 
                 alreadyAttacked = true;
@@ -119,7 +118,7 @@ public class EnemyAI : MonoBehaviour
 
                 rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
                 rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-                player.GetComponent<PlayerHealthScript>().TakeMeleeDamage(MeleeAttackDamage);
+                player.GetComponent<PlayerHealthScript>().takeDamage(Damage);
                 alreadyAttacked = true;
                 Invoke(nameof(ResetAttack), timeBetweenAttacks);
                 

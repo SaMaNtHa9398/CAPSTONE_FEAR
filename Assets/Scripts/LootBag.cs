@@ -13,7 +13,7 @@ public class LootBag : MonoBehaviour
     List<Loot> GetDroppedItems()
     {
         int randomNumber = Random.Range(spawnMinNumb, spawnMaxNumb); //1-100
-        Debug.Log(randomNumber);
+        //Debug.Log(randomNumber);
         List<Loot> PossibleItems = new List<Loot>();
         
         foreach(Loot item in lootlist)

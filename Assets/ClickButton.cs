@@ -17,9 +17,6 @@ public class ClickButton : MonoBehaviour
 
     public event ClickEvent onClick;
 
-    public int rayLength;
-    public LayerMask mask;
-    public string interactableTag; 
     // Start is called before the first frame update
     private void Awake()
     {
@@ -33,38 +30,12 @@ public class ClickButton : MonoBehaviour
     {
 
     }
-    private void OnButtonInteract()
-    {
-        RaycastHit button;
-        Vector3 buttonpos = transform.TransformDirection(Vector3.forward);
-        if (Physics.Raycast(transform.position, buttonpos, out button, rayLength, mask))
-        {
-            if(button.collider.CompareTag(interactableTag))
-            {
-
-                if (myLogic.player)
-                {
-                    ClickedColour();
-                    transform.position = new Vector3(myTP.x, myTP.y, -21.25f);
-                    //onClick.Invoke(myNumber);
-                }
-                else
-                {
-                    UnClickedColour();
-                    transform.position = new Vector3(myTP.x, myTP.y, myTP.z);
-                }
-
-            }
-        }
-    }
-
-
-   /* private void OnMouseDown()
+    private void OnMouseDown()
     {
         if (myLogic.player)
         {
             ClickedColour();
-            transform.position = new Vector3(myTP.x, myTP.y, -21.25f);
+            transform.position = new Vector3 (myTP.x, myTP.y, -21.25f);
             onClick.Invoke(myNumber);
         }
 
@@ -72,8 +43,8 @@ public class ClickButton : MonoBehaviour
     private void OnMouseUp()
     {
         UnClickedColour();
-        transform.position = new Vector3(myTP.x, myTP.y, myTP.z);
-    }*/
+        transform.position = new Vector3 (myTP.x, myTP.y, myTP.z);
+    }
     public void ClickedColour()
     {
         myRend.sharedMaterial = nMat;

@@ -201,6 +201,7 @@ MonoBehaviour:
   itemNameText: {fileID: 0}
   pickupProgressImage: {fileID: 0}
   ToolTipManager: {fileID: 0}
+  gunsystem: {fileID: 0}
 --- !u!114 &1068572657989946004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,10 +239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34951c041e58f6741991b319c6a5c222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayLength: 5
+  rayLength: 10
   layerMaskInteract:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   excluseLayerName: 
   openDoorKey: 323
   crosshair: {fileID: 0}
@@ -290,12 +291,10 @@ GameObject:
   - component: {fileID: 1068572658226732552}
   - component: {fileID: 1068572658226732548}
   - component: {fileID: 1068572658226732549}
-  - component: {fileID: 1068572658226732554}
-  - component: {fileID: 1068572658226732555}
   - component: {fileID: 1068572658226732551}
   - component: {fileID: 1068572658226732550}
-  - component: {fileID: 1068572658226732545}
   - component: {fileID: 1068572658226732544}
+  - component: {fileID: 923417070}
   m_Layer: 9
   m_Name: mila
   m_TagString: Player
@@ -371,46 +370,6 @@ MonoBehaviour:
   state: 0
   sliding: 0
   wallrunning: 0
---- !u!114 &1068572658226732554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068572658226732553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60db74a77e3bbfb4ba245244b7285f53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 256
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  wallRunForce: 5
-  wallJumpUpForce: 1
-  wallJumpSideForce: 1
-  wallClimbSpeed: 1.2
-  mazxWallRunTime: 15
-  upwardsRunKey: 304
-  downwardRunKey: 306
-  wallCheckDistance: 0.5
-  minJumpHeight: 0.4
-  orientation: {fileID: 1068572658003803594}
---- !u!114 &1068572658226732555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068572658226732553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dacfa407ea285104791c8bfac831bfa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1068572658226732551
 Animator:
   serializedVersion: 5
@@ -452,7 +411,21 @@ MonoBehaviour:
     m_Bits: 128
   attackDamageMeleePunch: 20
   attackRate: 3
---- !u!114 &1068572658226732545
+--- !u!136 &1068572658226732544
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068572658226732553}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 1.84
+  m_Direction: 1
+  m_Center: {x: 0.92, y: 0.69, z: -0.07}
+--- !u!114 &923417070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -466,28 +439,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   maxHealth: 100
-  Shield: 100
-  MaxShield: 100
   HealthSlider: {fileID: 0}
-  ShieldSlider: {fileID: 0}
-  respawning: {fileID: 0}
-  respawnTime: 2
+  respawnTime: 3
   respawnUI: {fileID: 0}
+  respawnPoint: {fileID: 0}
+  player: {fileID: 1068572658226732553}
   respawnLoading: {fileID: 0}
---- !u!136 &1068572658226732544
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068572658226732553}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.6
-  m_Height: 1.84
-  m_Direction: 1
-  m_Center: {x: 0.92, y: 0.69, z: -0.07}
 --- !u!1 &1068572658428160058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,11 +1395,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f33a6750edda74241bd72bbd1b8fec7d, type: 3}
       propertyPath: m_Name
-      value: ShotGun
+      value: Gun
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f33a6750edda74241bd72bbd1b8fec7d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f33a6750edda74241bd72bbd1b8fec7d, type: 3}
@@ -1467,8 +1424,10 @@ MonoBehaviour:
   range: 100
   fireRate: 14
   impactForce: 30
-  maxAmmo: 10
-  currentAmmo: 0
+  maxAmmoClip: 10
+  MaxAmmoSize: 255
+  currentAmmoClip: 0
+  currentAmmo: 10
   reloadtime: 2
   fpsCam: {fileID: 1068572657989946014}
   muzzleFlash: {fileID: 894873674425841371}

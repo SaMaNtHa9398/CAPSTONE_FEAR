@@ -172,8 +172,10 @@ public class GunSystem : MonoBehaviour
     public float fireRate = 14f; 
     public float impactForce = 30f;
 
-    public int maxAmmo = 10;
-    public int currentAmmo;
+    public int maxAmmoClip = 10;
+    public int MaxAmmoSize = 255; 
+    public int currentAmmoClip;
+    public int currentAmmo; 
     public float reloadtime = 2f; 
     private bool isReloading = false; 
 
@@ -186,7 +188,8 @@ public class GunSystem : MonoBehaviour
 
     private void Start()
     {
-        currentAmmo = maxAmmo; 
+        isReloading = false; 
+        //currentAmmoClip = maxAmmoClip; 
     }
     private void Update()
     {
@@ -209,13 +212,25 @@ public class GunSystem : MonoBehaviour
     {
         isReloading = true; 
         Debug.Log("Reloading...");
-
         yield return new WaitForSeconds(reloadtime); 
 
-        currentAmmo = maxAmmo;
+        int reloadAmount = maxAmmoClip - currentAmmoClip;
+        //reloadAmount = (currentAmmo - reloadAmount) >= 0 ? reloadAmount : currentAmmo;
+        currentAmmoClip += reloadAmount;
+        currentAmmo -= reloadAmount; 
+
+        //currentAmmoClip = maxAmmoClip;
         isReloading = false;
     }
 
+    public void AddAmmo(int ammoAmount)
+    {
+        currentAmmoClip += ammoAmount; 
+        if(currentAmmoClip > MaxAmmoSize)
+        {
+            currentAmmoClip = MaxAmmoSize; 
+        }
+    }
 
     void Shoot()
     {

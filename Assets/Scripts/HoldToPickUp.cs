@@ -21,7 +21,12 @@ public class HoldToPickUp : MonoBehaviour
     private Item itemBeingPickedUp;
     private float currentPickupTimeElapsed;
 
-    public ToolTipManager ToolTipManager; 
+    public ToolTipManager ToolTipManager;
+    public GameObject gunsystem;
+    private void Start()
+    {
+     
+    }
     private void Update()
     {
         SelectItemBeingPickedUpFromRay(); 
@@ -59,6 +64,7 @@ public class HoldToPickUp : MonoBehaviour
         {
            // ToolTipManager._instance.HidToolTip(); 
             MoveItemIntoInventory(); 
+            
         }
     
 
@@ -66,6 +72,7 @@ public class HoldToPickUp : MonoBehaviour
 
     private void SelectItemBeingPickedUpFromRay()
     {
+         
         Ray ray = PickUpcamera.ViewportPointToRay(Vector3.one / 2f);
         Debug.DrawRay(ray.origin, ray.direction * 2f, Color.red);
         RaycastHit hitInfo; 
@@ -80,7 +87,7 @@ public class HoldToPickUp : MonoBehaviour
             {
                 itemBeingPickedUp = hitItem;
                 itemNameText.text = "Pickup " + itemBeingPickedUp.gameObject.name; 
-
+               
             }
         }
         else
