@@ -30,14 +30,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4616240880284209462}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.000000022089306, y: 0.21294503, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7761225969204516775
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: d36e2e198aec1a6449d0f35de87a3e57, type: 3}
+  - {fileID: 2100000, guid: 3d5123a302d5b2242b1cc8950d521f27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,12 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f169a8829487a449aec2e14b1a23492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: 'A pack of 6 bullets enough for one reload of your weapon. '
-  itemtitle: 'Shot Gun Ammo '
-  itemtip: 'Can take someone''s head of with that. '
-  titleBoarderColor: {fileID: 0}
-  descriptionBoarderColor: {fileID: 0}
-  itemIcon: {fileID: 0}
 --- !u!114 &6115651852857898761
 MonoBehaviour:
   m_ObjectHideFlags: 0
