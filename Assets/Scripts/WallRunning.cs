@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WallRunning : MonoBehaviour
 {
-    [Header("WallRunning")]
+  /*[Header("WallRunning")]
     public LayerMask whatIsWall;
     public LayerMask whatIsGround;
     public float wallRunForce;
@@ -116,5 +116,5 @@ public class WallRunning : MonoBehaviour
     private void StopWallRun()
     {
         pm.wallrunning = false;
-    }
+    }*/
 }

@@ -7,7 +7,7 @@ public class DisableMouseLock : MonoBehaviour
 {
     // a script that awas created for the sole purpose of getting the mouse back for the inventory right if the tab button will cause the inventory to pop put and enable the mouse 
     public RectTransform InventoryUI;
-    bool IsMouseEnabled = false; 
+    public bool IsMouseEnabled = false; 
     private void Start()
     {
         InventoryUI.gameObject.SetActive(false);

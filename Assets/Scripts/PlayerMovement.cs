@@ -5,10 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [Header("Animation")]
-    private Animator animator; 
 
-    [Header("Movement")]
+    /*[Header("Movement")]
 
     private float moveSpeed;
     public float walkSpeed;
@@ -18,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
-    public float groundDrag;
+    public float groundDrag; 
+
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -61,10 +60,11 @@ public class PlayerMovement : MonoBehaviour
     {
         walking,
         sprinting,
-       // wallrunning,
+      wallrunning,
         crouching,
-        //sliding,
-        air
+       sliding,
+        air,
+       
     }
 
     public bool sliding;
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
         startYscale = transform.localScale.y;
 
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -138,23 +138,23 @@ public class PlayerMovement : MonoBehaviour
     }
     private void StateHandler()
     {
-       /* //mode Wallrunning
+        //mode Wallrunning
         if (wallrunning)
         {
             state = MovementState.wallrunning;
-            animator.SetBool("isWallRunning", true);
+            //animator.SetBool("isWallRunning", true);
             desiredMoveSpeed = wallRunSpeed;
         }
         else
         {
-            animator.SetBool("isWallRunning", false);
-        }*/
+            //animator.SetBool("isWallRunning", false);
+        }
 
         // mode - Sliding 
-       /* if (sliding)
+        if (sliding)
         {
             state = MovementState.sliding;
-            animator.SetBool("isSliding", true);
+            //animator.SetBool("isSliding", true);
 
             if (OnSlope() && rb.velocity.y < 0.1f)
                 desiredMoveSpeed = slideSpeed;
@@ -163,8 +163,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            animator.SetBool("isWallRunning", false);
-        }*/
+            //animator.SetBool("isWallRunning", false);
+        }
 
 
 
@@ -173,11 +173,11 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
-            animator.SetBool("isCrouching", true);
+            //animator.SetBool("isCrouching", true);
         }
         else
         {
-            animator.SetBool("isCrouching", false);
+            //animator.SetBool("isCrouching", false);
         }
 
         //mode Sprint
@@ -185,11 +185,11 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
-            animator.SetBool("isSprinting", true);
+           // animator.SetBool("isSprinting", true);
         }
         else
         {
-            animator.SetBool("isSprinting", false);
+          // animator.SetBool("isSprinting", false);
         }
 
 
@@ -198,13 +198,13 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
-            animator.SetBool("isWalking", true);
+           // animator.SetBool("isWalking", true);
         }
 
         else
         {
             state = MovementState.air;
-            animator.SetBool("isWalking", false);
+           // animator.SetBool("isWalking", false);
         }
 
         //check if desiredMoveSpeed has Changed drastically 
@@ -240,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         //calculate move direct 
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        
 
         // on slope 
         if (OnSlope() && !exitingSlope)
@@ -258,7 +258,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplayer, ForceMode.Force);
 
         // turn off gravity 
-        rb.useGravity = !OnSlope();
+       // rb.useGravity = !OnSlope();
     }
     private void SpeedControl()
     {
@@ -272,6 +272,7 @@ public class PlayerMovement : MonoBehaviour
         // limiting speed on ground or in air 
         else
         {
+
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
             //limit velocity 
@@ -281,36 +282,115 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
             }
 
+
+
         }
-
     }
-    private void Jump()
-    {
-        exitingSlope = true;
-        // reset y velocity 
-
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-
-    }
-    private void ResetJump()
-    {
-        readyToJump = true;
-        exitingSlope = false;
-    }
-    public bool OnSlope()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        private void Jump()
         {
-            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlopeAngle && angle != 0;
-        }
+            exitingSlope = true;
+            // reset y velocity 
 
-        return false;
-    }
-    public Vector3 GetSlopeMoveDirection(Vector3 direction)
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+        }
+        private void ResetJump()
+        {
+            readyToJump = true;
+            exitingSlope = false;
+        }
+        public bool OnSlope()
+        {
+            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+            {
+                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+                return angle < maxSlopeAngle && angle != 0;
+            }
+
+            return false;
+        }
+        public Vector3 GetSlopeMoveDirection(Vector3 direction)
+        {
+            return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+        }*/
+
+
+    [Header("Movement")]
+
+    public float moveSpeed;
+    public Transform orientation;
+    float horizontalInput;
+    float verticalInput;
+    public float groundDrag;
+
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
+
+    
+
+    public KeyCode jumpKey = KeyCode.Space; 
+    Vector3 moveDirection;
+    Rigidbody rb;
+
+    private void Start()
     {
-        return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true; 
+
     }
+
+    private void Update()
+    {
+        //ground check 
+
+
+        MyInput();
+        SpeedControl();
+       
+
+
+        //bug.Log(moveDirection);
+
+        //drag 
+      
+        
+    }
+    private void FixedUpdate()
+    {
+        MovePlayer(); 
+    }
+    private void MyInput()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+        
+       
+    }
+    private void MovePlayer()
+    {
+        //calculate move direct 
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+      
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        //in air 
+        
+
+    }
+    private void SpeedControl()
+    {
+         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            //limit velocity 
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
+    }
+  
+
 }
