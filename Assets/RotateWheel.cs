@@ -5,7 +5,7 @@ using System;
 
 public class RotateWheel : MonoBehaviour
 {
-    public static event Action<string, int> Rotated = delegate { };
+    public static event Action <string, int> Rotated = delegate { };
     private bool coroutineAllowed;
     public int numbershown;
 
@@ -18,7 +18,7 @@ public class RotateWheel : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (coroutineAllowed)
+        if(coroutineAllowed)
         {
             StartCoroutine("RotateTheWheel");
         }
@@ -26,16 +26,16 @@ public class RotateWheel : MonoBehaviour
     private IEnumerator RotateTheWheel()
     {
         coroutineAllowed = false;
-        for (int i = 0; i <= 11; i++)
+        for (int i = 0; i<=11; i++)
         {
             transform.Rotate(0f, 0f, 3f);
             yield return new WaitForSeconds(0.01f);
         }
         coroutineAllowed = true;
         numbershown += 1;
-        if (numbershown > 9)
+        //if (numbershown > 9)
         {
-            numbershown = 0;
+            //numbershown = 0;
 
         }
         Rotated(name, numbershown);

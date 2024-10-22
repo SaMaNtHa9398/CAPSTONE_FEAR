@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; 
 
 public class EnemyHealth : MonoBehaviour
 {
     public Animator animator; 
     public float health;
     public float maxHealth;
-    public GameObject enemygameObject; 
-
+    public GameObject enemygameObject;
+    public TextMeshProUGUI healthText; 
     [SerializeField] FloatingStats stats; 
     private void Start()
     {
-        maxHealth = health; 
+        maxHealth = health;
+        healthText.text = health.ToString(); 
     }
 
     private void Awake()
@@ -23,8 +25,9 @@ public class EnemyHealth : MonoBehaviour
     {
         health -= EnemyDamage;
         stats.UpdateHealthBar(health, maxHealth);
+        healthText.text = health.ToString();
         // hurt animation  
-       
+
 
         if (health <= 0)
         {

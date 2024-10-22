@@ -21,6 +21,15 @@ TagManager:
   - interactableTag
   - InteractiveObject
   - Trigger
+  - olive
+  - teal
+  - yellow
+  - marroon
+  - Interactable
+  - cat
+  - pot1
+  - pot2
+  - pot3
   layers:
   - Default
   - TransparentFX

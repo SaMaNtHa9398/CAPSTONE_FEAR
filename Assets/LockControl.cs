@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class LockControl : MonoBehaviour
 {
-
     public int[] result, correctCombo;
-    public GameObject door; 
+    public Renderer doorRend;
+    public Collider doorCollier;
+
+   public GameObject door; 
     private void Start()
     {
-        door.SetActive(true); 
+        //door.SetActive(true); 
         result = new int[] { 1, 1, 1, 1, 1 };
         correctCombo = new int[] { 1, 2, 4, 5, 3 };
         RotateWheel.Rotated += CheckResults;
@@ -35,15 +36,17 @@ public class LockControl : MonoBehaviour
                 result[4] = number;
                 break;
         }
-        if (result[0] == correctCombo[0] && result[1] == correctCombo[1] && result[2] == correctCombo[2] && result[3] == correctCombo[3] && result[4] == correctCombo[4])
+        if(result[0] == correctCombo[0]&& result[1] == correctCombo[1] && result[2] == correctCombo[2] && result[3] == correctCombo[3] && result[4] == correctCombo[4] )
         {
             Debug.Log("Opened!");
-            door.SetActive(false); 
+            doorCollier.enabled = false;
+            //door.SetActive(false); 
+            doorRend.enabled = false;
         }
     }
 
-    private void OnDestroy()
-    {
-        RotateWheel.Rotated -= CheckResults;
-    }
+  //private void OnDestroy()
+    
+      //RotateWheel.Rotated -= CheckResults;
+    
 }

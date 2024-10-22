@@ -13,19 +13,19 @@ public class Keypad : MonoBehaviour
     public int passcodelimit;
     public GameObject door; 
     public TextMeshPro passcodeText;
-    [Header("Animation")]
+    //[Header("Animation")]
    
-    public Animator doorAnim;
-    [SerializeField] private string openAnimationName = "DoorOpen";
+   // public Animator doorAnim;
+    //[SerializeField] private string openAnimationName = "DoorOpen";
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip correctSound;
     public AudioClip wrongSound;
     private void Start()
     {
-        //doorAnim = gameObject.GetComponent<Animator>();
+       // doorAnim = gameObject.GetComponent<Animator>();
         passcodeText.text = "";
-        door.SetActive(true); 
+      door.SetActive(true); 
     }
 
     public void PasscodeEntry(string number)
@@ -58,7 +58,8 @@ public class Keypad : MonoBehaviour
     {
         if (passcodeText.text == passcode)
         {
-            door.SetActive(false); 
+            //door.SetActive(false); 
+            //doorAnim.Play(openAnimationName, 0, 0.0f);
             passcodeText.color = Color.green;
             StartCoroutine(waitAndClear());
 

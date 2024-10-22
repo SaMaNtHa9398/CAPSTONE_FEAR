@@ -11,7 +11,7 @@ public class Damage : MonoBehaviour
     public LayerMask Player;
     void Update()
     {
-        Debug.Log(cooldownTime); 
+       //ebug.Log(cooldownTime); 
     }
     private void OnCollisionStay(Collision collision)
     {

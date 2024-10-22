@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("KeyBinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.C;
-    public KeyCode SlideKey = KeyCode.LeftControl;
+    public KeyCode crouchKey = KeyCode.LeftControl;
+    //public KeyCode SlideKey = KeyCode.LeftControl;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -61,9 +61,9 @@ public class PlayerMovement : MonoBehaviour
     {
         walking,
         sprinting,
-        wallrunning,
+       // wallrunning,
         crouching,
-        sliding,
+        //sliding,
         air
     }
 

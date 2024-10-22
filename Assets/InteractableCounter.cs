@@ -20,10 +20,13 @@ public class InteractableCounter : MonoBehaviour
 
         if (other.gameObject.CompareTag(Tag))
         {
-            GameObject[] gameObjsArray = gameObjs.ToArray();
+           //if (!gameObjs.Contains(other.gameObject))
+            //{
+               // gameObjs.Add(other.gameObject); 
+                 interactionsNum += 1;
+           // }
 
-            interactionsNum += 1;
-            Text.text = interactionsNum.ToString();
+            //Text.text = interactionsNum.ToString();
 
         }
 
@@ -34,8 +37,12 @@ public class InteractableCounter : MonoBehaviour
         {
             //Debug.Log("Required interactions reached. Activating puzzle image.");
             PuzzleImage.SetActive(true);
-            Text.text = requiredInteractions.ToString();
+          //Text.text = requiredInteractions.ToString();
         }
        
+        /*if(interactionsNum >= requiredInteractions)
+        {
+            interactionsNum = requiredInteractions; 
+        }*/
     }
 }

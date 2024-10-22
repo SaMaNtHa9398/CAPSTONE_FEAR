@@ -11,7 +11,7 @@ public class PickUpScript : MonoBehaviour
         GetComponent<MeshCollider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
         this.transform.position = theDest.position;
-        this.transform.parent = GameObject.Find("Destination").transform;
+        this.transform.parent = GameObject.Find("holdPos").transform;
     }
 
     private void OnMouseUp()
