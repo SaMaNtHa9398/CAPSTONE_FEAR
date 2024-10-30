@@ -9,10 +9,13 @@ public class EnemyHealth : MonoBehaviour
     public float health;
     public float maxHealth;
     public GameObject enemygameObject;
+    public GameObject Door; 
     public TextMeshProUGUI healthText; 
-    [SerializeField] FloatingStats stats; 
+    [SerializeField] FloatingStats stats;
+    public WaveSpawner waveSpawner; 
     private void Start()
     {
+        Door.SetActive(true); 
         maxHealth = health;
         healthText.text = health.ToString(); 
     }
@@ -32,7 +35,8 @@ public class EnemyHealth : MonoBehaviour
         if (health <= 0)
         {
             health = 0; 
-            LootDrop(); 
+            LootDrop();
+            OpenDoor(); 
             DestoryEnemy(); 
         } 
         else
@@ -60,4 +64,13 @@ public class EnemyHealth : MonoBehaviour
     {
         GetComponent<LootBag>().InstantiateLoot(transform.position);
     }
+    private void OpenDoor()
+    {
+        if(waveSpawner)
+        {
+            Door.SetActive(false); 
+        }
+
+    }
 }
+

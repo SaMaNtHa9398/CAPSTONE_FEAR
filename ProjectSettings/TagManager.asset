@@ -45,8 +45,8 @@ TagManager:
   - Item
   - Chest
   - Hold
-  - 
-  - 
+  - PostProcessing
+  - Interact
   - 
   - 
   - 
