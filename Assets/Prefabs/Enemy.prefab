@@ -663,7 +663,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   walkpoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 60
+  walkPointRange: 5
   enemyAttackPoint: {fileID: 1048341940}
   Damage: 0
   timeBetweenAttacks: 0.5
@@ -703,7 +703,10 @@ MonoBehaviour:
   health: 40
   maxHealth: 40
   enemygameObject: {fileID: 7289243053277426289}
+  Door: {fileID: 0}
+  healthText: {fileID: 0}
   stats: {fileID: 125734444}
+  waveSpawner: {fileID: 0}
 --- !u!114 &125734444
 MonoBehaviour:
   m_ObjectHideFlags: 0

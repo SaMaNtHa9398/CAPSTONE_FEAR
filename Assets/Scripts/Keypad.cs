@@ -58,7 +58,7 @@ public class Keypad : MonoBehaviour
     {
         if (passcodeText.text == passcode)
         {
-            //door.SetActive(false); 
+            door.SetActive(false); 
             //doorAnim.Play(openAnimationName, 0, 0.0f);
             passcodeText.color = Color.green;
             StartCoroutine(waitAndClear());

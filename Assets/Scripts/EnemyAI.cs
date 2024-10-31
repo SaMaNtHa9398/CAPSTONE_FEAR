@@ -120,8 +120,7 @@ public class EnemyAI : MonoBehaviour
                 rb.AddForce(transform.up * 8f, ForceMode.Impulse);
                 player.GetComponent<PlayerHealthScript>().takeDamage(Damage);
                 alreadyAttacked = true;
-                Invoke(nameof(ResetAttack), timeBetweenAttacks);
-                
+                Invoke(nameof(ResetAttack), timeBetweenAttacks); 
             }
         }
             animator.SetBool("PlayerInAttackRange", false);
@@ -150,7 +149,6 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(transform.position, sightRange);
-
     }
 
    

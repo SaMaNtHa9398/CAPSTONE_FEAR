@@ -11,8 +11,13 @@ public class InteractableCounter : MonoBehaviour
     public List<GameObject> gameObjs = new List<GameObject>();
     public GameObject PuzzleImage;
     public TextMeshPro Text;
-
-
+    public GameObject door;
+    public GameObject interactionCounterTurnactive; 
+    private void Start()
+    {
+        door.SetActive(true);
+        interactionCounterTurnactive.SetActive(false);
+    }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("OnTriggerEnter called with: " + other.gameObject.name);
@@ -37,9 +42,11 @@ public class InteractableCounter : MonoBehaviour
         {
             //Debug.Log("Required interactions reached. Activating puzzle image.");
             PuzzleImage.SetActive(true);
-          //Text.text = requiredInteractions.ToString();
+            door.SetActive(false);
+            interactionCounterTurnactive.SetActive(true); 
+            //Text.text = requiredInteractions.ToString();
         }
-       
+
         /*if(interactionsNum >= requiredInteractions)
         {
             interactionsNum = requiredInteractions; 

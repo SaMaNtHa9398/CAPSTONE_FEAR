@@ -26,13 +26,16 @@ public class HoldToInteract : MonoBehaviour
     private Chest itemBeingOpened;
     private float currentPickupTimeElapsed;
 
+    public GameObject UIchain; 
     private Animator animator;
 
     private bool isChestOpened = false;
+    private bool isUIup = false;
     private void Update()
     {
         SelectItemBeingPickedUpFromRay();
         token.SetActive(false);
+        UIchain.SetActive(false); 
         if (HasItemTargetted())
         {
             pickupImageRoot.gameObject.SetActive(true);
@@ -70,7 +73,13 @@ public class HoldToInteract : MonoBehaviour
             isChestOpened = true;
             currentPickupTimeElapsed = 0f; 
             IntermediateStep(); 
-        }    
+        }   
+        if(currentPickupTimeElapsed >= pickupTime && !isUIup)
+        {
+            isUIup = true;
+            currentPickupTimeElapsed = 0f;
+            IntermediateStep(); 
+        }
 
     }
 
@@ -79,6 +88,10 @@ public class HoldToInteract : MonoBehaviour
         if (isChestOpened)
         {
             OpenChest();
+        }
+        if(isUIup)
+        {
+            ToggleUI(); 
         }
     }
     private void SelectItemBeingPickedUpFromRay()
@@ -90,10 +103,16 @@ public class HoldToInteract : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo, 1f, layerMask))
         {
             var hitChest = hitInfo.collider.GetComponent<Chest>();
+            var hitNPC = hitInfo.collider.GetComponent<NPC>(); 
             if (hitChest == null)
             {
                 itemBeingOpened = null;
                 isChestOpened = false;
+            }
+            else if(hitNPC == null)
+            {
+                itemBeingOpened = null;
+                isUIup = false;
             }
             else if (hitChest != null && hitChest != itemBeingOpened)
             {
@@ -105,6 +124,7 @@ public class HoldToInteract : MonoBehaviour
         else
         {
             isChestOpened = false;
+            isUIup = false; 
             itemBeingOpened = null;
         }
 
@@ -120,5 +140,10 @@ public class HoldToInteract : MonoBehaviour
         token.SetActive(true);
         hold.enabled = !hold.enabled;
         pickupImageRoot.gameObject.SetActive(false);
+    }
+
+    private void ToggleUI()
+    {
+        UIchain.SetActive(true); 
     }
 }
