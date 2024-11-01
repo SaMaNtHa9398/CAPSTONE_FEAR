@@ -26,11 +26,17 @@ public class HoldToInteract : MonoBehaviour
     private Chest itemBeingOpened;
     private float currentPickupTimeElapsed;
 
-    public GameObject UIchain; 
+    public GameObject UIchain;
+    public GameObject BG; 
     private Animator animator;
 
     private bool isChestOpened = false;
     private bool isUIup = false;
+
+    private void Start()
+    {
+        BG.SetActive(false); 
+    }
     private void Update()
     {
         SelectItemBeingPickedUpFromRay();
@@ -144,6 +150,7 @@ public class HoldToInteract : MonoBehaviour
 
     private void ToggleUI()
     {
-        UIchain.SetActive(true); 
+        UIchain.SetActive(true);
+        BG.SetActive(true); 
     }
 }

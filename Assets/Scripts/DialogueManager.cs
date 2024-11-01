@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
+using TMPro;
 
 
 public class DialogueManager : MonoBehaviour
-{/* // this code was from brackeys or Bmo 
+{
+    /* // this code was from brackeys or Bmo 
     public Queue <string> sentences;
     private void Start()
     {
@@ -17,76 +18,156 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Starting Convo with " + dialogue.name); 
     }*/
 
-    //https://pastebin.com/aBtSXSt0 
+    /*  //https://pastebin.com/aBtSXSt0 
 
-    public static DialogueManager Instance; 
+      public static DialogueManager Instance; 
 
-    public Image characterIcon;
+      public Image characterIcon;
 
-    public TextMeshProUGUI characterName;
-    public TextMeshProUGUI dialogueArea;
+      public TextMeshProUGUI characterName;
+      public TextMeshProUGUI dialogueArea;
 
-    private Queue<DialogueLine> lines;
+      private Queue<DialogueLine> lines;
 
-    public bool isDialogueActive = false;
-    public float typingSpeed = 0.2f;
+      public bool isDialogueActive = false;
+      public float typingSpeed = 0.2f;
 
-    public Animator animator;
+      public Animator animator;
 
-    private void Awake()
+      private void Awake()
+      {
+          if (Instance == null)
+              Instance = this;
+
+          lines = new Queue<DialogueLine>(); 
+      }
+
+      public void StartDialogue(Dialogue dialogue)
+      {
+          isDialogueActive = true;
+
+          animator.Play("show");
+
+          lines.Clear();
+
+          foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
+          {
+              lines.Enqueue(dialogueLine);
+          }
+
+          DisplayNextDialogueLine();
+      }
+      public void DisplayNextDialogueLine()
+      {
+          if (lines.Count == 0)
+          {
+              EndDialogue();
+              return;
+          }
+
+          DialogueLine currentLine = lines.Dequeue();
+
+          characterIcon.sprite = currentLine.character.icon;
+          characterName.text = currentLine.character.name;
+
+          StopAllCoroutines();
+
+          StartCoroutine(TypeSentence(currentLine));
+      }
+
+      IEnumerator TypeSentence(DialogueLine dialogueLine)
+      {
+          dialogueArea.text = "";
+          foreach (char letter in dialogueLine.line.ToCharArray())
+          {
+              dialogueArea.text += letter;
+              yield return new WaitForSeconds(typingSpeed);
+          }
+      }
+
+      void EndDialogue()
+      {
+          isDialogueActive = false;
+          animator.Play("hide");
+      }
+  }
+    */
+
+    public TextMeshProUGUI textDisplay;
+    public string[] sentences;
+
+    private int index;
+    public float typingSpeed;
+    public Image[] pfp; 
+    public AudioSource[] voicelines;
+    public Image[] imagesRepresentation; 
+    public GameObject continueButton;
+    public GameObject Collectables;
+
+    private void Start()
     {
-        if (Instance == null)
-            Instance = this;
-
-        lines = new Queue<DialogueLine>(); 
+        Collectables.SetActive(false);
     }
-
-    public void StartDialogue(Dialogue dialogue)
+    IEnumerator Type()
     {
-        isDialogueActive = true;
-
-        animator.Play("show");
-
-        lines.Clear();
-
-        foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
+        foreach(char letter in sentences[index].ToCharArray())
         {
-            lines.Enqueue(dialogueLine);
+            textDisplay.text += letter;
+            
+            yield return new WaitForSeconds(typingSpeed); 
+        }
+    }
+    public void  PictureMover()
+    {
+       foreach(Image pfpic in pfp)
+        {
+            pfpic.enabled = !pfpic.enabled; 
         }
 
-        DisplayNextDialogueLine();
-    }
-    public void DisplayNextDialogueLine()
-    {
-        if (lines.Count == 0)
+       foreach(Image ir in imagesRepresentation)
         {
-            EndDialogue();
-            return;
+            ir.enabled = !ir.enabled; 
         }
 
-        DialogueLine currentLine = lines.Dequeue();
+       foreach(AudioSource vl in voicelines)
+        {
+            if (vl.isPlaying)
+            {
+                vl.Stop(); 
+            }
+            else
+            {
+                vl.Play();
+            }
+        }
+    }
+    private void Update()
+    {
+        if(textDisplay.text == sentences[index])
+        {
+            continueButton.SetActive(true); 
+        }
+        if( index == sentences.Length)
+        {
+            Collectables.SetActive(true); 
+        }
 
-        characterIcon.sprite = currentLine.character.icon;
-        characterName.text = currentLine.character.name;
-
-        StopAllCoroutines();
-
-        StartCoroutine(TypeSentence(currentLine));
     }
 
-    IEnumerator TypeSentence(DialogueLine dialogueLine)
+    public void NextSentence()
     {
-        dialogueArea.text = "";
-        foreach (char letter in dialogueLine.line.ToCharArray())
+        continueButton.SetActive(true);
+        PictureMover(); 
+
+        if(index <sentences.Length -1 )
         {
-            dialogueArea.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+            index++;
+            textDisplay.text = " ";
+            StartCoroutine(Type());
+        }else
+        {
+            textDisplay.text = " "; 
         }
     }
 
-    void EndDialogue()
-    {
-        isDialogueActive = false;
-        animator.Play("hide");
-    }
 }
