@@ -325,6 +325,12 @@ public class PlayerMovement : MonoBehaviour
     float verticalInput;
     public float groundDrag;
 
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    bool readytoJump; 
+
+
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
@@ -340,7 +346,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true; 
-
+        readytoJump = true;
     }
 
     private void Update()
@@ -367,17 +373,28 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        
-       
+
+        // jump 
+        if (Input.GetKey(jumpKey) && readytoJump && grounded)
+        {
+            readytoJump = false;
+
+            jump();
+
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
     }
     private void MovePlayer()
     {
         //calculate move direct 
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
       
+       // on ground 
+       if(grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         //in air 
-        
+        else if (!grounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
     }
     private void SpeedControl()
@@ -392,5 +409,18 @@ public class PlayerMovement : MonoBehaviour
             }
     }
   
+    private void jump()
+    {
+        // reset y velocity 
 
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void ResetJump()
+    {
+        readytoJump = true;
+        
+    }
 }

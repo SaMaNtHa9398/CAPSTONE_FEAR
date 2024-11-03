@@ -15,9 +15,9 @@ public class EnemyHealth : MonoBehaviour
     public WaveSpawner waveSpawner; 
     private void Start()
     {
-        Door.SetActive(true); 
+      //  Door.SetActive(true); 
         maxHealth = health;
-        healthText.text = health.ToString(); 
+      //  healthText.text = health.ToString(); 
     }
 
     private void Awake()
@@ -66,10 +66,10 @@ public class EnemyHealth : MonoBehaviour
     }
     private void OpenDoor()
     {
-        if(waveSpawner)
-        {
-            Door.SetActive(false); 
-        }
+       // if(waveSpawner)
+       // {
+        //    Door.SetActive(false); 
+       // }
 
     }
 }

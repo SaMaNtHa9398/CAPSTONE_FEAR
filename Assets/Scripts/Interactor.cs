@@ -92,6 +92,10 @@ public class Interactor : MonoBehaviour
     {
         outline.enabled = true;
     }
+    public void DisableThis()
+    {
+        this.enabled = false;
+    }
 
 }
 

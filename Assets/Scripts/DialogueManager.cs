@@ -94,46 +94,61 @@ public class DialogueManager : MonoBehaviour
     */
 
     public TextMeshProUGUI textDisplay;
+    public Image pfppic, imagerepe; 
     public string[] sentences;
 
-    private int index;
+    private int index, indexpfp, indeximage, indexvl;
     public float typingSpeed;
     public Image[] pfp; 
     public AudioSource[] voicelines;
     public Image[] imagesRepresentation; 
-    public GameObject continueButton;
-    public GameObject Collectables;
+    public GameObject continueButton, ContinueButton2;
+    public GameObject CollectablesPanel;
 
     private void Start()
     {
-        Collectables.SetActive(false);
+        StartCoroutine(Type());
+        //StartCoroutine(PictureMover());
+        SetCursor();
+       CollectablesPanel.SetActive(false);
+    
+        ContinueButton2.SetActive(false); 
+    }
+    public void SetCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+    public void reverseCursor()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     IEnumerator Type()
     {
-        foreach(char letter in sentences[index].ToCharArray())
+        foreach (char letter in sentences[index].ToCharArray())
         {
             textDisplay.text += letter;
-            
-            yield return new WaitForSeconds(typingSpeed); 
+
+            yield return new WaitForSeconds(typingSpeed);
         }
-    }
-    public void  PictureMover()
-    {
-       foreach(Image pfpic in pfp)
+       foreach (Image pfpic in pfp)
         {
-            pfpic.enabled = !pfpic.enabled; 
+            pfpic.sprite = pfpic.sprite; 
+
         }
 
-       foreach(Image ir in imagesRepresentation)
+        foreach (Image ir in imagesRepresentation)
         {
-            ir.enabled = !ir.enabled; 
+            ir.enabled = !ir.enabled;
+
         }
 
-       foreach(AudioSource vl in voicelines)
+        foreach (AudioSource vl in voicelines)
         {
             if (vl.isPlaying)
             {
-                vl.Stop(); 
+                vl.Stop();
             }
             else
             {
@@ -141,33 +156,38 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
+  
+   
+        
     private void Update()
     {
         if(textDisplay.text == sentences[index])
         {
             continueButton.SetActive(true); 
         }
-        if( index == sentences.Length)
-        {
-            Collectables.SetActive(true); 
-        }
-
     }
-
+    
     public void NextSentence()
     {
-        continueButton.SetActive(true);
-        PictureMover(); 
+        //continueButton.SetActive(false);
+       // PictureMover(); 
 
         if(index <sentences.Length -1 )
         {
             index++;
+            indexpfp++; 
             textDisplay.text = " ";
             StartCoroutine(Type());
         }else
         {
-            textDisplay.text = " "; 
+            textDisplay.text = " ";
+          
+                continueButton.SetActive(false);
+                ContinueButton2.SetActive(true);
+                CollectablesPanel.SetActive(true);
+           
         }
+
     }
 
 }

@@ -30,6 +30,14 @@ TagManager:
   - pot1
   - pot2
   - pot3
+  - Head1
+  - 'red '
+  - 'white '
+  - blue
+  - 'pink '
+  - purple
+  - green
+  - orange
   layers:
   - Default
   - TransparentFX

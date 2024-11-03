@@ -37,6 +37,13 @@ public class HoldToInteract : MonoBehaviour
     {
         BG.SetActive(false); 
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            Update(); 
+        }
+    }
     private void Update()
     {
         SelectItemBeingPickedUpFromRay();
