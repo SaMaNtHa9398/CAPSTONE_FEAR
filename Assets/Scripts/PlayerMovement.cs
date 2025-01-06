@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float sprintSpeed; 
     public float groundDrag;
+    public bool weAreSprinting = false; 
 
     [Header("Jump")]
     public float jumpForce;
@@ -37,8 +39,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slope Handling")]
     public float maxSlopeAngle;
     public RaycastHit slopeHit;
-    bool exitingSlope; 
+    private bool exitingSlope;
 
+    [Header("Fucking UI Shit for Stamina")]
+    public Image StaminaBar;
+    public float Stamina, MaxStamina;
+    public float JumpCost, SprintCost, chargeRate;
+    private Coroutine recharge; 
 
     public Transform orientation;
     float horizontalInput;
@@ -48,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    
     public MovementState state; 
     public enum MovementState
     {
@@ -60,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+       // stamina = GetComponent<StaminaController>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -67,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
         startYscale = transform.localScale.y; 
     }
+
 
     private void Update()
     {
@@ -121,14 +131,18 @@ public class PlayerMovement : MonoBehaviour
         // Mode - Crouching 
         if(Input.GetKey(CrouchKey))
         {
+
             state = MovementState.crouching;
             moveSpeed = crouchSpeed; 
         }
         // Mode - Sprinting
-        if(grounded && Input.GetKey(sprintKey))
+        else if(grounded && Input.GetKey(sprintKey) && Stamina>0)
         {
             state = MovementState.sprinting;
-            moveSpeed = sprintSpeed; 
+            moveSpeed = sprintSpeed;
+            Stamina -= SprintCost * Time.deltaTime;
+            StaminaDecrease();
+            weAreSprinting = true;
         }   
         
         // Mode - Walking 
@@ -155,18 +169,22 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
 
+
             if (rb.velocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
 
 
         //on ground
-        if(grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force); 
+        if (grounded)
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            
+        }
 
         // in air
-        else if(!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f *airMultiplier, ForceMode.Force);
+        else if (!grounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
         // turn gravity off while on slope
         rb.useGravity = !OnSlope(); 
@@ -198,12 +216,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        exitingSlope = true; 
-        // reset y velocity 
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        if (Stamina >= JumpCost)
+        {
+            exitingSlope = true;
+            // reset y velocity 
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse); 
-
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            Stamina -= JumpCost;
+            StaminaDecrease();
+        }
     }
 
     private void ResetJump()
@@ -227,5 +249,29 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 GetSlopeMoveDirection()
     {
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized; 
+    }
+
+    private void StaminaDecrease()
+    {
+        if (Stamina <= 0) Stamina = 0;
+        StaminaBar.fillAmount = Stamina / MaxStamina;
+        if (recharge != null) StopCoroutine(recharge);
+        recharge = StartCoroutine(RechargingStamina());
+    }
+
+    private IEnumerator RechargingStamina()
+    {
+        yield return new WaitForSeconds(10f);
+        sprintSpeed = 0;
+        jumpForce = 0;
+        airMultiplier = 0;
+
+        while (Stamina < MaxStamina)
+        {
+            Stamina += chargeRate / 10f;
+            if (Stamina > MaxStamina) Stamina = MaxStamina;
+            StaminaBar.fillAmount = Stamina / MaxStamina; 
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
