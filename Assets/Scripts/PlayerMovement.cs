@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         //on ground
-        if (grounded)
+        else if (grounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             
@@ -262,9 +262,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator RechargingStamina()
     {
         yield return new WaitForSeconds(10f);
-        sprintSpeed = 0;
-        jumpForce = 0;
-        airMultiplier = 0;
+    
 
         while (Stamina < MaxStamina)
         {
@@ -272,6 +270,12 @@ public class PlayerMovement : MonoBehaviour
             if (Stamina > MaxStamina) Stamina = MaxStamina;
             StaminaBar.fillAmount = Stamina / MaxStamina; 
             yield return new WaitForSeconds(0.1f);
+        }
+        while(Stamina <= 0)
+        {
+            sprintSpeed = 0;
+            jumpForce = 0;
+            airMultiplier = 0;
         }
     }
 }
