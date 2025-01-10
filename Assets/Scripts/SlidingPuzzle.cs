@@ -12,13 +12,14 @@ public class SlidingPuzzle : MonoBehaviour
     private int emptyLocation;
     public int size;
     private bool shuffling = false;
+    public bool ConditionMeet = false;
     //public Animator doorAnim;
 
     //public GameObject gameboard; 
     //public GameObject symbolObject;
     //public Renderer doorRend;
     //public Collider doorCollider; 
-   // [SerializeField] private string openAnimationName = "DoorOpen";
+    // [SerializeField] private string openAnimationName = "DoorOpen";
 
 
     // Create the game setup with size x size pieces.
@@ -68,6 +69,7 @@ public class SlidingPuzzle : MonoBehaviour
         pieces = new List<Transform>();
         //size = 2;
         CreateGamePieces(0.01f);
+        ConditionMeet = false;
        
 
     }
@@ -89,7 +91,8 @@ public class SlidingPuzzle : MonoBehaviour
         else if (!shuffling && !CheckCompletion())
         {
             shuffling = true;
-
+            ConditionMeet = true; 
+            
             StartCoroutine(WaitShuffle(100000f));
 
         }// I ADD THIS PART BECAUSE THE PUZZLE WOULD CONTINUOUSLY TURN OVER.

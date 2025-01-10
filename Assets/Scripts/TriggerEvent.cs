@@ -12,7 +12,10 @@ public class TriggerEvent : MonoBehaviour
     public List<GameObject> gameobjs = new List<GameObject>();
     public GameObject haunt;
     public GameObject triggerbox;
-    public Animation anim;
+    //public Animation anim;
+    /// <summary>
+    /// when the animation comes into the action then that will be added 
+    /// </summary>
 
     private void Start()
     {
