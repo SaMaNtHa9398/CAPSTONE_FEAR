@@ -21,15 +21,15 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
-    [Header("Crouching")]
+    /*[Header("Crouching")]
     public float crouchSpeed;
     public float crouchYscale;
-    public float startYscale;
+    public float startYscale;*/
 
     [Header("keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode CrouchKey = KeyCode.LeftControl; 
+   // public KeyCode CrouchKey = KeyCode.LeftControl; 
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     {
         walking, 
         sprinting, 
-        crouching, 
+       // crouching, 
         air
     }
 
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
         readyToJump = true;
 
-        startYscale = transform.localScale.y; 
+       // startYscale = transform.localScale.y; 
     }
 
 
@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
        
-        //start crouching
+        /*start crouching
         if(Input.GetKey(CrouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYscale, transform.localScale.z);
@@ -123,20 +123,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyUp(CrouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, startYscale, transform.localScale.z);
-        }
+        }*/
     }
 
     private void StateHandler()
     {
-        // Mode - Crouching 
-        if(Input.GetKey(CrouchKey))
-        {
-
-            state = MovementState.crouching;
-            moveSpeed = crouchSpeed; 
-        }
+        
         // Mode - Sprinting
-        else if(grounded && Input.GetKey(sprintKey) && Stamina>0)
+       if(grounded && Input.GetKey(sprintKey) && Stamina>0)
         {
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;

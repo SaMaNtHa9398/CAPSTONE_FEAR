@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     public float playerReach = 3f;
-    Interactor currentInteractable; 
+    Interactor currentInteractable;
 
     // Update is called once per frame
     void Update()

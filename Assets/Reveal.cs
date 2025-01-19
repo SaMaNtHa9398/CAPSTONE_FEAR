@@ -5,16 +5,32 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Reveal : MonoBehaviour
 {
-    [SerializeField] Material Mat;
-    [SerializeField] Light Spotlight; 
-    void Update()
-    {
-        if (Mat && Spotlight)
-        {
-            Mat.SetVector("MyLightPosition", Spotlight.transform.position);
-            Mat.SetVector("MyLightDirection", Spotlight.transform.forward);
-            Mat.SetFloat("MyLightAngle", Spotlight.spotAngle); 
+    [SerializeField] GameObject Mat;
+    [SerializeField] Light Spotlight;
 
-        }
+    public float lightReach = 5f;
+    Interactor currentInteractable;
+
+    private void Start()
+    {
+        Mat.SetActive(true); 
     }
+
+    void CheckMaterial ()
+    {
+         RaycastHit hit;
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        //if colliders with anything within player reach 
+        if (Physics.Raycast(ray, out hit, lightReach))
+        {
+            if (hit.collider.tag == "BloodPainting")
+            {
+                Mat.SetActive(false);
+            }
+        }
+        else
+        {
+            Mat.SetActive(true);   
+        }
+    }    
 }
