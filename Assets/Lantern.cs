@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class Lantern : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class Lantern : MonoBehaviour
     public bool drainOverTime;
     public float maxBrightness;
     public float minBrightness;
-    public float drainRate; 
+    public float drainRate;
+    public Image LightBar; 
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,8 @@ public class Lantern : MonoBehaviour
         {
             if (m_light.intensity > minBrightness)
             {
-                m_light.intensity -= Time.deltaTime * (drainRate / 1000); 
+                m_light.intensity -= Time.deltaTime * (drainRate / 500);
+                LightBar.fillAmount = m_light.intensity / maxBrightness;
             }
         }
             if(Input.GetKeyDown(KeyCode.Q))
@@ -33,6 +36,7 @@ public class Lantern : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.X))
         {
+
             ReplaceBattey(0.4f); 
         }
     }
@@ -41,4 +45,6 @@ public class Lantern : MonoBehaviour
         // animation 
         m_light.intensity += amount; 
     }
+     
+  
 }

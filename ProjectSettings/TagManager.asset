@@ -39,6 +39,7 @@ TagManager:
   - green
   - orange
   - BloodPainting
+  - Blood
   layers:
   - Default
   - TransparentFX

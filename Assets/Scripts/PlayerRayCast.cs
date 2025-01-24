@@ -7,10 +7,11 @@ public class PlayerRayCast : MonoBehaviour
     public Transform headPos;
     public int length;
 
-    
+
+
     private void Update()
     {
-        
+
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, headPos.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
@@ -32,7 +33,7 @@ public class PlayerRayCast : MonoBehaviour
                 }
             }
         }
-       
 
     }
+
 }

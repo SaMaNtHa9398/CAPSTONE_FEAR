@@ -26,7 +26,6 @@ Material:
   - _SPECGLOSSMAP
   - _USEAOFROMMAINPROPERTIES_ON
   - _USEBASECOLORALPHA_ON
-  - _USEEMISSIONFROMMAINPROPERTIES_ON
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -110,11 +109,11 @@ Material:
     - _DetailSource: 0
     - _DetailSpecularIntensity: 0.2
     - _DstBlend: 0
-    - _EmissionIntensity: 1
+    - _EmissionIntensity: 0.98
     - _EnableDetailMask: 1
     - _EnableTriplanarProjection: 0
     - _GlossMapScale: 0
-    - _Glossiness: 0
+    - _Glossiness: 0.71
     - _GlossyReflections: 0
     - _IntensityCutoutMap: 0.5
     - _IntensityMask: 0
@@ -141,7 +140,7 @@ Material:
     - _UVSec: 0
     - _UseAoFromMainProperties: 1
     - _UseBaseColorAlpha: 1
-    - _UseEmissionFromMainProperties: 1
+    - _UseEmissionFromMainProperties: 0
     - _VisualizeMask: 0
     - _ZTest: 4
     - _ZWrite: 1

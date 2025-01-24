@@ -11,8 +11,9 @@ public class Keypad : MonoBehaviour
 
     public string passcode;
     public int passcodelimit;
-    public GameObject door; 
+    //public GameObject door; 
     public TextMeshPro passcodeText;
+     public DescructibleWall wall; 
     //[Header("Animation")]
    
    // public Animator doorAnim;
@@ -25,11 +26,12 @@ public class Keypad : MonoBehaviour
     {
        // doorAnim = gameObject.GetComponent<Animator>();
         passcodeText.text = "";
-      door.SetActive(true); 
+      //door.SetActive(true); 
     }
 
     public void PasscodeEntry(string number)
     {
+        Debug.Log($"PasscodeEntry called with number: {number}");
         if (number == "Clear")
         {
             Clear();
@@ -40,12 +42,17 @@ public class Keypad : MonoBehaviour
             Enter();
             return;
         }
-
-        int length = passcodeText.text.ToString().Length;
-        if (length < passcodelimit)
+        if (passcodeText.text.Length < passcodelimit)
         {
-            passcodeText.text = passcodeText.text + number;
+            // Update the text box with the new input
+            passcodeText.text += number;
         }
+
+        /* int length = passcodeText.text.ToString().Length;
+         if (length < passcodelimit)
+         {
+             passcodeText.text = passcodeText.text + number;
+         }*/
     }
 
     public void Clear()
@@ -58,10 +65,11 @@ public class Keypad : MonoBehaviour
     {
         if (passcodeText.text == passcode)
         {
-            door.SetActive(false); 
+           // door.SetActive(false); 
             //doorAnim.Play(openAnimationName, 0, 0.0f);
             passcodeText.color = Color.green;
             StartCoroutine(waitAndClear());
+            wall.Open();
 
         }
         else

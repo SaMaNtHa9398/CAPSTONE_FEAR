@@ -16466,6 +16466,7 @@ MonoBehaviour:
   itemNameText: {fileID: 0}
   pickupProgressImage: {fileID: 0}
   UIchain: {fileID: 0}
+  BG: {fileID: 0}
 --- !u!1 &1068572658003803595
 GameObject:
   m_ObjectHideFlags: 0
@@ -16571,14 +16572,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff794d00afc7f0b4888a06d9933def1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  orientation: {fileID: 1068572658003803594}
+  walkSpeed: 10
+  sprintSpeed: 0
   groundDrag: 0.4
+  weAreSprinting: 0
+  jumpForce: 0
+  jumpCooldown: 0
+  airMultiplier: 0
+  jumpKey: 32
+  sprintKey: 304
   playerHeight: 3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  jumpKey: 32
+  maxSlopeAngle: 0
+  StaminaBar: {fileID: 0}
+  Stamina: 0
+  MaxStamina: 0
+  JumpCost: 0
+  SprintCost: 0
+  chargeRate: 0
+  orientation: {fileID: 1068572658003803594}
+  state: 0
 --- !u!95 &1068572658226732551
 Animator:
   serializedVersion: 5
