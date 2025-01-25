@@ -6,48 +6,26 @@ namespace KeySystem
 {
     public class KeyDoorController : MonoBehaviour
     {
-        public DescructibleWall wall; 
-       
-        private Animator doorAnim;
+        public DescructibleWall wall;
+
+     
         private bool doorOpen = false;
-       // [Header("Animation Names")]
-       // [SerializeField] private string openAnimationName = "DoorOpen";
-       //[SerializeField] public GameObject door;
-        //public Collider boxCollider; 
-        // public MeshRenderer meshrenderer;
-        //[SerializeField] private string closeAnimationName = "DoorClose";
-        [SerializeField] private int timeToShowUI = 1;
-         
-        [SerializeField] private GameObject showDoorLockUI = null;
+      
         [SerializeField] private KeyInventory _keyInventory = null;
-        
+
 
         [SerializeField] private int waitTimer = 1;
         [SerializeField] private bool pauseInteraction = false;
 
         private void Start()
         {
-            wall = GetComponentInChildren<DescructibleWall>(); 
+            wall = GetComponentInChildren<DescructibleWall>();
         }
         private void Update()
         {
-            PlayAnimation(); 
+            PlayAnimation();
         }
-        private void Awake()
-        {
-           // doorAnim = gameObject.GetComponent<Animator>();
-            //door.SetActive(true);
-        }
-        /*private void Start()
-        {
-            //boxCollider = GetComponent<Collider>(); 
-            //meshrenderer = GetComponent<MeshRenderer>();
-            // Check if the MeshRenderer component is found
-            //if (meshrenderer == null)
-            {
-                //Debug.LogError("No MeshRenderer found on this GameObject!");
-            }
-        }*/
+      
         private IEnumerator PauseDoorInteraction()
         {
             pauseInteraction = true;
@@ -57,50 +35,37 @@ namespace KeySystem
 
         public void PlayAnimation()
         {
-            if (_keyInventory.hasDoor1Key)
+
+            if (_keyInventory.hasDoor1Key && _keyInventory.Door1 || _keyInventory.hasDoor2Key && _keyInventory.Door2|| _keyInventory.hasDoor3Key && _keyInventory.Door3 || _keyInventory.hasDoor4Key && _keyInventory.Door4)
             {
-                OpenDoor();
-            }
             
-           else if (_keyInventory.hasDoor2Key)
-            {
-                OpenDoor();
+                    OpenDoor();
+      
             }
-            else if (_keyInventory.hasDoor3Key)
-            {
-                OpenDoor();
-            }
-            else if (_keyInventory.hasDoor4Key)
-            {
-                OpenDoor();
-            }
+
             else
             {
-                StartCoroutine(ShowDoorLocked());
+              
             }
         }
         public void OpenDoor()
         {
-            if (!doorOpen && !pauseInteraction)
+
+            if (!doorOpen)
             {
-               
+
                 doorOpen = true;
                 StartCoroutine(PauseDoorInteraction());
-                wall.Open(); 
-               
+                wall.Open();
+
             }
-            else if (doorOpen && !pauseInteraction)
+            if (doorOpen)
             {
-      
+
                 doorOpen = false;
                 StartCoroutine(PauseDoorInteraction());
             }
         }
-        IEnumerator ShowDoorLocked()
-        {
-            showDoorLockUI.SetActive(true);
-            yield return new WaitForSeconds(timeToShowUI);
-            showDoorLockUI.SetActive(false);
-        }
+      
     }
 }

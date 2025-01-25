@@ -6,17 +6,22 @@ using UnityEngine.UI;
 
 public class KeyItemController : MonoBehaviour
 {
-    [SerializeField] private bool MingDoor = false;
-    [SerializeField] private bool EchoDoor = false;
-    [SerializeField] private bool BaileyDoor = false;
-    [SerializeField] private bool ClaireDoor = false; 
+    [Header("Door Flags")]
+    [SerializeField] private bool Door1 = false;
+    [SerializeField] private bool Door2 = false;
+    [SerializeField] private bool Door3 = false;
+    [SerializeField] private bool Door4 = false;
+
+    [Header("Key Flags")]
     [SerializeField] private bool Door1Key = false;
     [SerializeField] private bool Door2Key = false;
     [SerializeField] private bool Door3Key = false;
     [SerializeField] private bool Door4Key = false;
 
-    public GameObject Med1, Med2, Med3, Med4;
-  
+    [Header("Med Displays")]
+    public GameObject Med; 
+
+    [Header("Inventory")]
     [SerializeField] public KeyInventory _keyInventory = null;
   
     private KeyDoorController doorObject;
@@ -26,69 +31,77 @@ public class KeyItemController : MonoBehaviour
 
     private void Start()
     {
-       // door.SetActive(true); 
-        if (MingDoor)
-        {
-            doorObject = GetComponent<KeyDoorController>();
-        }
-        else if(EchoDoor)
-        {
-            doorObject = GetComponent<KeyDoorController>();
-        }
-        else if(BaileyDoor)
-        {
-            doorObject = GetComponent<KeyDoorController>();
-        }
-        else if (ClaireDoor)
-        {
-            doorObject = GetComponent<KeyDoorController>();
-        }
+        // door.SetActive(true); 
+         if (Door1 || Door2 || Door3 || Door4)
+         {
+             doorObject = GetComponent<KeyDoorController>();
+         }
+       
     }
     public void objectInteraction()
     {
-        if(MingDoor)
+
+        //Doors 
+        if(Door1)
         {
-            doorObject.PlayAnimation(); 
+            _keyInventory.Door1 = true;
+            // doorObject.PlayAnimation();
+            return;
         }
-        else if (Door1Key)
-         {
+        if (Door2)
+        {
+            _keyInventory.Door2 = true;
+            // doorObject.PlayAnimation();
+            return;
+        }
+        if (Door3)
+        {
+            _keyInventory.Door3 = true;
+            // doorObject.PlayAnimation();
+            return;
+        }
+        if (Door4)
+        {
+            _keyInventory.Door4 = true;
+            // doorObject.PlayAnimation();
+            return;
+        }
+
+        //Key PickUps
+        if (Door1Key)
+        {
             _keyInventory.hasDoor1Key = true;
-            Med1.SetActive(true);
-            gameObject.SetActive(false); 
-         }
-        else if (EchoDoor)
-        {
-            doorObject.PlayAnimation(); 
+            ActivateMedDisplay(Med);
+            return;
         }
-       else if (EchoDoor)
+        if (Door2Key)
         {
             _keyInventory.hasDoor2Key = true;
-            Med1.SetActive(true);-
-            gameObject.SetActive(false);
+            ActivateMedDisplay(Med);
+            return;
         }
-        else if (BaileyDoor)
-        {
-            doorObject.PlayAnimation();
-        }
-        else if (BaileyDoor)
+        if (Door3Key)
         {
             _keyInventory.hasDoor3Key = true;
-            Med1.SetActive(true);
-            gameObject.SetActive(false);
+            ActivateMedDisplay(Med);
+            return;
         }
-        else if (ClaireDoor)
-        {
-            doorObject.PlayAnimation();
-        }
-        else if (ClaireDoor)
+        if (Door4Key)
         {
             _keyInventory.hasDoor4Key = true;
-            Med1.SetActive(true);
-            gameObject.SetActive(false);
+            ActivateMedDisplay(Med);
+            return;
         }
 
-
     }
+     private void ActivateMedDisplay(GameObject medDisplay)
+        {
+            if (medDisplay != null)
+            {
+                medDisplay.SetActive(true);
+            }
+            gameObject.SetActive(false); // Deactivate the key object
+        }
 
 }
 

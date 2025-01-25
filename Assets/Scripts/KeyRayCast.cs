@@ -10,15 +10,18 @@ public class KeyRayCast : MonoBehaviour
     [SerializeField] private string excluseLayerName = null;
 
     private KeyItemController raycastedObject;
-    [SerializeField] private KeyCode openDoorKey = KeyCode.Mouse0;
+    [SerializeField] private KeyCode DoorKey = KeyCode.Mouse0;
+   
     [SerializeField] private Image crosshair = null;
     private bool isCrosshairActive;
     private bool doOnce;
 
     private string interactableTag = "InteractiveObject";
-
     private void Update()
     {
+
+        // if (view.IsMine)
+        //{
         RaycastHit hit;
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         int mask = 1 << LayerMask.NameToLayer(excluseLayerName) | layerMaskInteract.value;
@@ -35,7 +38,7 @@ public class KeyRayCast : MonoBehaviour
                 isCrosshairActive = true;
                 doOnce = true;
 
-                if (Input.GetKeyDown(openDoorKey))
+                if (Input.GetKeyDown(DoorKey))
                 {
                     raycastedObject.objectInteraction();
                 }
@@ -50,6 +53,8 @@ public class KeyRayCast : MonoBehaviour
             }
         }
 
+        // }
+
         void CrosshairChange(bool on)
         { // ! mean false 
             if (on && !doOnce)
@@ -63,5 +68,6 @@ public class KeyRayCast : MonoBehaviour
             }
         }
 
-    }
+
+    } 
 }
