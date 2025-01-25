@@ -92,7 +92,7 @@ public class SlidingPuzzle : MonoBehaviour
         {
             shuffling = true;
             ConditionMeet = true; 
-            
+      
             StartCoroutine(WaitShuffle(100000f));
 
         }// I ADD THIS PART BECAUSE THE PUZZLE WOULD CONTINUOUSLY TURN OVER.
