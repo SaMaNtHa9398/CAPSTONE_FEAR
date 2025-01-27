@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; 
+using UnityEngine.UI; 
 public class HudControler : MonoBehaviour
 {
     public static HudControler instance;
@@ -11,7 +11,7 @@ public class HudControler : MonoBehaviour
         instance = this; 
     }
 
-    [SerializeField] TMP_Text interactionText;
+    [SerializeField] Text interactionText;
 
     public void EnableInteractionText(string text)
     {

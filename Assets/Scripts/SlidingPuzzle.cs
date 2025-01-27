@@ -7,21 +7,16 @@ public class SlidingPuzzle : MonoBehaviour
     #region Code for The Sliding Puzzle
     [SerializeField] private Transform gameTransform;
     [SerializeField] private Transform piecePrefab;
+    
 
     private List<Transform> pieces;
     private int emptyLocation;
     public int size;
     private bool shuffling = false;
     public bool ConditionMeet = false;
-    //public Animator doorAnim;
-
-    //public GameObject gameboard; 
-    //public GameObject symbolObject;
-    //public Renderer doorRend;
-    //public Collider doorCollider; 
-    // [SerializeField] private string openAnimationName = "DoorOpen";
-
-
+    [SerializeField] private LayerMask puzzlePieceLayer;
+    public DescructibleWall wall;
+    
     // Create the game setup with size x size pieces.
     private void CreateGamePieces(float gapThickness)
     {
@@ -44,6 +39,7 @@ public class SlidingPuzzle : MonoBehaviour
                 {
                     emptyLocation = (size * size) - 1;
                     piece.gameObject.SetActive(false);
+                    Debug.Log("Empty piece set at location: " + emptyLocation);
                 }
                 else
                 {
@@ -67,52 +63,74 @@ public class SlidingPuzzle : MonoBehaviour
     void Start()
     {
         pieces = new List<Transform>();
-        //size = 2;
         CreateGamePieces(0.01f);
+
+        // Shuffle the pieces immediately after they are created
+        Shuffle();
+        shuffling = true; // Ensure shuffling happens at the start
         ConditionMeet = false;
-       
+
 
     }
+    void SetPiecesToSolvedState()
+    {
+        for (int i = 0; i < pieces.Count; i++)
+        {
+            int row = i / size;
+            int col = i % size;
+            pieces[i].localPosition = new Vector3(-1 + (2 * 1f / size * col) + 1f / size,
+                                                   +1 - (2 * 1f / size * row) - 1f / size,
+                                                   0);
+        }
 
+        // Now call CheckCompletion
+        CheckCompletion();
+       
+    }
     // Update is called once per frame
     void Update()
     {
 
-        // Check for completion.
-        if (!shuffling && CheckCompletion())
+       
+         if (!shuffling && CheckCompletion())
         {
-
-            shuffling = true;
-
-            StartCoroutine(WaitShuffle(1f));
-
-
+            // Puzzle completed, trigger any actions here
+            Debug.Log("Puzzle is solved!");
+            ConditionMeet = true; // Set your condition for opening the door or other actions
         }
-        else if (!shuffling && !CheckCompletion())
+
+        // If the puzzle isn't solved, handle shuffling and user interactions
+        if (shuffling)
         {
-            shuffling = true;
-            ConditionMeet = true; 
-      
-            StartCoroutine(WaitShuffle(100000f));
+            Debug.Log("Puzzle is still shuffling...");
+        }
+        if (CheckCompletion())
+        {
+            ConditionMeet = true;  // Mark the puzzle as complete when all pieces are in place
+            shuffling = false;     // Ensure the puzzle is no longer in a shuffling state
+        
+        }
+        if(ConditionMeet == true)
+        {
+            wall.Open(); 
+        }
 
-        }// I ADD THIS PART BECAUSE THE PUZZLE WOULD CONTINUOUSLY TURN OVER.
 
-
+       
         // On click send out ray to see if we click a piece.
         if (Input.GetMouseButtonDown(0))
         {
-            //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+           
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                // Go through the list, the index tells us the position.
+               
                 for (int i = 0; i < pieces.Count; i++)
                 {
                     if (pieces[i] == hit.transform)
                     {
-                        // Check each direction to see if valid move.
-                        // We break out on success so we don't carry on and swap back again.
+                       
                         if (SwapIfValid(i, -size, size)) { break; }
                         if (SwapIfValid(i, +size, size)) { break; }
                         if (SwapIfValid(i, -1, 0)) { break; }
@@ -121,24 +139,31 @@ public class SlidingPuzzle : MonoBehaviour
                 }
             }
         }
+
+        SetPiecesToSolvedState();
     }
 
     // colCheck is used to stop horizontal moves wrapping.
     private bool SwapIfValid(int i, int offset, int colCheck)
     {
+       
+
         if (((i % size) != colCheck) && ((i + offset) == emptyLocation))
         {
-            // Swap them in game state.
+            // Swap in the game state
             (pieces[i], pieces[i + offset]) = (pieces[i + offset], pieces[i]);
-            // Swap their transforms.
-            (pieces[i].localPosition, pieces[i + offset].localPosition) = ((pieces[i + offset].localPosition, pieces[i].localPosition));
-            // Update empty location.
+
+            // Swap their positions in the world
+            (pieces[i].localPosition, pieces[i + offset].localPosition) = (pieces[i + offset].localPosition, pieces[i].localPosition);
+
+            // Update empty location
             emptyLocation = i;
             return true;
         }
         return false;
+    
 
-    }
+}
 
     // We name the pieces in order so we can use this to check completion.
     private bool CheckCompletion()
@@ -146,17 +171,18 @@ public class SlidingPuzzle : MonoBehaviour
 
         for (int i = 0; i < pieces.Count; i++)
         {
+            // The puzzle is complete if all pieces are in the correct order
             if (pieces[i].name != $"{i}")
             {
+                Debug.Log($"Piece {pieces[i].name} is not in the correct position.");
                 return false;
             }
-
         }
-        //door.SetActive(false);
-        
+
+        // All pieces are in place, so the puzzle is complete
+        Debug.Log("Puzzle is complete!");
         return true;
-
-
+    
     }
 
     private IEnumerator WaitShuffle(float duration)
@@ -164,9 +190,7 @@ public class SlidingPuzzle : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Shuffle();
         shuffling = false;
-        //doorRend.enabled = false;
-        //doorCollider.enabled = false;
-
+       
 
     }
 
@@ -174,35 +198,47 @@ public class SlidingPuzzle : MonoBehaviour
     private void Shuffle()
     {
         int count = 0;
-        int last = 0;
+        int last = -1;
+
         while (count < (size * size * size))
         {
-            // Pick a random location.
             int rnd = Random.Range(0, size * size);
-            // Only thing we forbid is undoing the last move.
-            if (rnd == last) { continue; }
+            if (rnd == last) continue;
+
             last = emptyLocation;
-            // Try surrounding spaces looking for valid move.
-            if (SwapIfValid(rnd, -size, size))
-            {
-                count++;
-            }
-            else if (SwapIfValid(rnd, +size, size))
-            {
-                count++;
-            }
-            else if (SwapIfValid(rnd, -1, 0))
-            {
-                count++;
-            }
-            else if (SwapIfValid(rnd, +1, size - 1))
-            {
-                count++;
-            }
+
+            if (SwapIfValid(rnd, -size, size)) { count++; }
+            else if (SwapIfValid(rnd, +size, size)) { count++; }
+            else if (SwapIfValid(rnd, -1, 0)) { count++; }
+            else if (SwapIfValid(rnd, +1, size - 1)) { count++; }
         }
 
+        Debug.Log($"Shuffling complete. Empty location: {emptyLocation}");
 
+        // Check completion after shuffle is done
+        if (CheckCompletion())
+        {
+            Debug.Log("Puzzle is solved after shuffle!");
+        }
 
+        // Reset the shuffling flag
+        shuffling = false;
+    }
+    void TestSolvedState()
+    {
+        // Manually set pieces to the solved state
+        for (int i = 0; i < pieces.Count; i++)
+        {
+            int row = i / size;
+            int col = i % size;
+            pieces[i].localPosition = new Vector3(-1 + (2 * 1f / size * col) + 1f / size,
+                                                   +1 - (2 * 1f / size * row) - 1f / size,
+                                                   0);
+        }
+
+        // Now check if completion is detected
+        Debug.Log("Testing solved state...");
+        CheckCompletion();
     }
     #endregion
 }

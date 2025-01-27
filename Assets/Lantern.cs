@@ -10,7 +10,8 @@ public class Lantern : MonoBehaviour
     public float maxBrightness;
     public float minBrightness;
     public float drainRate;
-    public Image LightBar; 
+    public Image LightBar;
+    public float amount; 
     // Start is called before the first frame update
     void Start()
     {

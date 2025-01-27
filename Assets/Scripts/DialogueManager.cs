@@ -132,29 +132,8 @@ public class DialogueManager : MonoBehaviour
 
             yield return new WaitForSeconds(typingSpeed);
         }
-       foreach (Image pfpic in pfp)
-        {
-            pfpic.sprite = pfpic.sprite; 
-
-        }
-
-        foreach (Image ir in imagesRepresentation)
-        {
-            ir.enabled = !ir.enabled;
-
-        }
-
-        foreach (AudioSource vl in voicelines)
-        {
-            if (vl.isPlaying)
-            {
-                vl.Stop();
-            }
-            else
-            {
-                vl.Play();
-            }
-        }
+      
+        
     }
   
    

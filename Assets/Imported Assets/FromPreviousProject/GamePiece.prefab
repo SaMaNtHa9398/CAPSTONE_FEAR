@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 44656497049666621}
   - component: {fileID: 6773423557319431682}
   - component: {fileID: 7067355448096130246}
-  - component: {fileID: 4010991544190082815}
-  m_Layer: 0
+  - component: {fileID: 1727936753577441054}
+  m_Layer: 16
   m_Name: GamePiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4010991544190082815
+--- !u!64 &1727936753577441054
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,6 +95,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}

@@ -270,7 +270,6 @@ GameObject:
   - component: {fileID: 6789318549241400310}
   - component: {fileID: 6789318549241400311}
   - component: {fileID: 6789318549241400301}
-  - component: {fileID: 6789318549241400306}
   - component: {fileID: 6789318549241400307}
   - component: {fileID: 6789318549241400304}
   m_Layer: 9
@@ -376,20 +375,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 6789318549074656194}
---- !u!114 &6789318549241400306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6789318549241400309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0d375c7066048c4dbb0515b9837d098, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InventoryUI: {fileID: 0}
-  IsMouseEnabled: 0
 --- !u!114 &6789318549241400307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +392,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 33792
   excluseLayerName: 
-  openDoorKey: 323
+  DoorKey: 323
   crosshair: {fileID: 7425865841766539595}
 --- !u!114 &6789318549241400304
 MonoBehaviour:
@@ -511,9 +496,7 @@ GameObject:
   - component: {fileID: 6789318549582485080}
   - component: {fileID: 6789318549582485081}
   - component: {fileID: 6789318549582485086}
-  - component: {fileID: 6789318549582485087}
   - component: {fileID: 6789318549582485084}
-  - component: {fileID: 6789318549582485085}
   - component: {fileID: 6789318549582485410}
   m_Layer: 9
   m_Name: Player
@@ -605,25 +588,6 @@ MonoBehaviour:
   flashLight: {fileID: 6789318550004876119}
   turnOnSound: {fileID: 0}
   turnOffSound: {fileID: 0}
---- !u!114 &6789318549582485087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6789318549582485408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34951c041e58f6741991b319c6a5c222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rayLength: 10
-  layerMaskInteract:
-    serializedVersion: 2
-    m_Bits: 1024
-  excluseLayerName: 
-  openDoorKey: 323
-  crosshair: {fileID: 7425865841766539595}
 --- !u!114 &6789318549582485084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,24 +603,7 @@ MonoBehaviour:
   playerCameraTransform: {fileID: 6789318549241400308}
   pickUpLayerMask:
     serializedVersion: 2
-    m_Bits: 33792
-  objectGrabPointTransform: {fileID: 6789318549162222582}
---- !u!114 &6789318549582485085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6789318549582485408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35394590629268b489d79a31d89f8233, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCameraTransform: {fileID: 6789318549241400308}
-  pickUpLayerMask:
-    serializedVersion: 2
-    m_Bits: 15863
+    m_Bits: 2147483647
   objectGrabPointTransform: {fileID: 6789318549162222582}
 --- !u!114 &6789318549582485410
 MonoBehaviour:
@@ -670,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1c0e406a9a4ca4fbdeae8565f9df20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headPos: {fileID: 6789318549162222582}
+  headPos: {fileID: 6789318549241400308}
   length: 10
 --- !u!1 &6789318549668191147
 GameObject:
@@ -962,6 +909,8 @@ MonoBehaviour:
   maxBrightness: 1
   minBrightness: 0.1
   drainRate: 6
+  LightBar: {fileID: 6789318550074775099}
+  amount: 0
 --- !u!1 &6789318550011294068
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,12 +921,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6789318550011294071}
   m_Layer: 9
-  m_Name: Button
+  m_Name: watch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6789318550011294071
 RectTransform:
   m_ObjectHideFlags: 0

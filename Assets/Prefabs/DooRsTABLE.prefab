@@ -1087,6 +1087,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5964451764600220082}
+  - component: {fileID: 3748044914542510093}
   m_Layer: 6
   m_Name: DooRsTABLE
   m_TagString: Untagged
@@ -1137,6 +1138,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3748044914542510093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033040976231958185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb04fdfe316b4fa47b54cbbd1a45d3f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WallBroken: {fileID: 5570209811338556478, guid: 4cc83e1963857414c848bc454ec3544e, type: 3}
 --- !u!1 &2216335201648211242
 GameObject:
   m_ObjectHideFlags: 0

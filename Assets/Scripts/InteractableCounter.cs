@@ -43,13 +43,14 @@ public class InteractableCounter : MonoBehaviour
 
         if (interactionsNum == requiredInteractions)
         {
+            ConditionMeet = true; 
             //Debug.Log("Required interactions reached. Activating puzzle image.");
             PuzzleImage.SetActive(true);
             //door.SetActive(false);
             interactionCounterTurnactive.SetActive(true);
             TriggerArea.SetActive(false);
             interactionsNum = requiredInteractions;
-            ConditionMeet = true; 
+           
             //Text.text = requiredInteractions.ToString();
         }
 
