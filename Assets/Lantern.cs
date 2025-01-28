@@ -11,7 +11,7 @@ public class Lantern : MonoBehaviour
     public float minBrightness;
     public float drainRate;
     public Image LightBar;
-    public float amount; 
+    public float batteryhealth; 
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +44,7 @@ public class Lantern : MonoBehaviour
     public void ReplaceBattey(float amount)
     {
         // animation 
-        m_light.intensity += amount; 
+        m_light.intensity += batteryhealth; 
     }
      
   
