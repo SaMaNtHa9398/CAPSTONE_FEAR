@@ -41,6 +41,10 @@ TagManager:
   - BloodPainting
   - Blood
   - Door
+  - Lydi
+  - Miche
+  - player
+  - Medea
   layers:
   - Default
   - TransparentFX

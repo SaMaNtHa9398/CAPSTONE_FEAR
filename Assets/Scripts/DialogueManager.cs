@@ -100,8 +100,6 @@ public class DialogueManager : MonoBehaviour
     private int index, indexpfp, indeximage, indexvl;
     public float typingSpeed;
     public Image[] pfp; 
-    public AudioSource[] voicelines;
-    public Image[] imagesRepresentation; 
     public GameObject continueButton, ContinueButton2;
     public GameObject CollectablesPanel;
 
