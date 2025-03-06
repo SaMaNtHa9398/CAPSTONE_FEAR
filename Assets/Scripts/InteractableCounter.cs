@@ -9,16 +9,17 @@ public class InteractableCounter : MonoBehaviour
     public int interactionsNum = 0;
     public int requiredInteractions = 4;
     public List<GameObject> gameObjs = new List<GameObject>();
-    public GameObject PuzzleImage;
-    public TextMeshPro Text;
-    public GameObject door;
-    public GameObject interactionCounterTurnactive;
-    public bool ConditionMeet = false;
+    //public GameObject PuzzleImage;
+    //public TextMeshPro Text;
+    //public GameObject door;
+   // public GameObject interactionCounterTurnactive;
+    //public bool ConditionMeet = false;
     public GameObject TriggerArea;
+    public DescructibleWall wall;
     private void Start()
     {
         //door.SetActive(true);
-        interactionCounterTurnactive.SetActive(false);
+        //interactionCounterTurnactive.SetActive(false);
         TriggerArea.SetActive(true);
     }
     private void OnTriggerEnter(Collider other)
@@ -28,13 +29,13 @@ public class InteractableCounter : MonoBehaviour
 
         if (other.gameObject.CompareTag(Tag))
         {
-           //if (!gameObjs.Contains(other.gameObject))
-            //{
-               // gameObjs.Add(other.gameObject); 
+          if (!gameObjs.Contains(other.gameObject))
+            {
+               gameObjs.Add(other.gameObject); 
                  interactionsNum += 1;
-           // }
+            }
 
-            //Text.text = interactionsNum.ToString();
+           // Text.text = interactionsNum.ToString();
 
         }
 
@@ -43,20 +44,17 @@ public class InteractableCounter : MonoBehaviour
 
         if (interactionsNum == requiredInteractions)
         {
-            ConditionMeet = true; 
-            //Debug.Log("Required interactions reached. Activating puzzle image.");
-            PuzzleImage.SetActive(true);
-            //door.SetActive(false);
-            interactionCounterTurnactive.SetActive(true);
+           
+            
             TriggerArea.SetActive(false);
             interactionsNum = requiredInteractions;
+            wall.Open();
            
-            //Text.text = requiredInteractions.ToString();
         }
 
-        /*if(interactionsNum >= requiredInteractions)
+        if(interactionsNum >= requiredInteractions)
         {
             interactionsNum = requiredInteractions; 
-        }*/
+        }
     }
 }

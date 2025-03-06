@@ -18,7 +18,7 @@ public class ConditionDoor : MonoBehaviour
         {
             // Ensure the object has the required component
             var pedestal = obj.GetComponent<InteractableCounter>();
-            if (pedestal != null && pedestal.ConditionMeet && !countedObjects.Contains(obj))
+            //if (pedestal != null && pedestal.ConditionMeet && !countedObjects.Contains(obj))
             {
                 countedObjects.Add(obj); // Add to counted set
                 completetables++;       // Increment completed count
