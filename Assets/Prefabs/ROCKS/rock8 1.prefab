@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8696244283409729288}
   - component: {fileID: 8936899970803028691}
   - component: {fileID: 4801068765706234418}
+  - component: {fileID: 5867902687379913472}
   m_Layer: 0
   m_Name: rock8 1
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7290478086747678654}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.8262343, y: -0.000014878345, z: -10.874904}
   m_LocalScale: {x: 2.7958796, y: 2.7958796, z: 2.7958796}
   m_ConstrainProportionsScale: 0
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8212226473263337188, guid: e3e39ff8eab8f0140bb43bd3f4952aad, type: 3}
+  - {fileID: 2100000, guid: 02112187cabcd3544aebcd5d2d75ff15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5867902687379913472
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7290478086747678654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5246199916523698905, guid: e3e39ff8eab8f0140bb43bd3f4952aad, type: 3}

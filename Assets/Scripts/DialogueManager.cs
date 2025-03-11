@@ -8,33 +8,21 @@ using TMPro;
 public class DialogueManager : MonoBehaviour
 {
    
-    public TextMeshProUGUI textDisplay;
-    //public Image pfppic, imagerepe; 
+    public Text textDisplay;
     public string[] sentences;
 
-   private int index;
+    private int index;
     public float typingSpeed;
-    //public Image[] pfp; 
+    
     public GameObject continueButton, ContinueButton2;
-    //public GameObject CollectablesPanel;
+    public GameObject CollectablesPanel;
 
    void Start()
     {
-        SetCursor();  // Make sure the cursor is unlocked at the start
-        StartCoroutine(Type());
-        ContinueButton2.SetActive(false);
+       
     }
 
-    void SetCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-    public void reverseCursor()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+
     IEnumerator Type()
     {
         foreach (char letter in sentences[index].ToCharArray())
@@ -52,7 +40,7 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         
-        if (textDisplay.text == sentences[index])
+        if (Input.GetKeyDown(KeyCode.F) && textDisplay.text == sentences[index])
         {
             continueButton.SetActive(true);
         }
@@ -61,8 +49,7 @@ public class DialogueManager : MonoBehaviour
     
     public void NextSentence()
     {
-        //continueButton.SetActive(false);
-       // PictureMover(); 
+       
 
         if(index <sentences.Length -1 )
         {
@@ -75,9 +62,8 @@ public class DialogueManager : MonoBehaviour
             textDisplay.text = " ";
           
                 continueButton.SetActive(false);
-                ContinueButton2.SetActive(true);
-            //CollectablesPanel.SetActive(true);
-            reverseCursor(); 
+                
+            
            
         }
 
