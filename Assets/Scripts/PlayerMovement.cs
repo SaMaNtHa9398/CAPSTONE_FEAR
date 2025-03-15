@@ -71,39 +71,51 @@ public class PlayerMovement : MonoBehaviour
        // stamina = GetComponent<StaminaController>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
+       
         readyToJump = true;
 
-       // startYscale = transform.localScale.y; 
+        //  HARD RESET
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        Debug.Log("Rigidbody Reset: " + rb.velocity);
+
+        // startYscale = transform.localScale.y; 
     }
 
 
     private void Update()
     {
+        Debug.Log("Player Position: " + transform.position);
+        Debug.Log("Update is running...");
         // ground check 
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround); 
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
         
         MyInput();
         SpeedControl();
-        StateHandler(); 
+        StateHandler();
 
         //handle drag
         if (grounded)
             rb.drag = groundDrag;
         else
             rb.drag = 0; 
+     
     }
 
     private void FixedUpdate()
     {
-      
+        Debug.Log("FixedUpdate is running...");
         MovePlayer(); 
     }
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
+        Debug.Log("Horizontal: " + Input.GetAxisRaw("Horizontal") + " | Vertical: " + Input.GetAxisRaw("Vertical"));
         //when to jump 
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
@@ -156,10 +168,25 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         //calculate movement direction 
+        // moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        //Vector3 force = moveDirection.normalized * moveSpeed * 10f;
+        //Debug.Log("Force Applied: " + force);
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        Vector3 force = moveDirection.normalized * moveSpeed * 10f;
+
+        Debug.Log("Applying Force: " + force);
+
+        if (grounded)
+        {
+            rb.AddForce(force, ForceMode.Force);
+        }
+
+
+
+
 
         // on slope 
-        if(OnSlope() && !exitingSlope)
+        if (OnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
 
