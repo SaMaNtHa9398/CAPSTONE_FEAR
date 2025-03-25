@@ -17,8 +17,7 @@ public class getridofUI : MonoBehaviour
 
     void Update()
     {
-        model.SetActive(false);
-        UIpickup.SetActive(false);
+       
         if (Input.GetKeyDown(KeyCode.R))
         {
             UItoggleon.SetActive(false);

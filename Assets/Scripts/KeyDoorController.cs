@@ -33,19 +33,23 @@ namespace KeySystem
             pauseInteraction = false;
         }
 
-        public void PlayAnimation()
+       public void PlayAnimation()
         {
 
-            if (_keyInventory.hasDoor1Key && _keyInventory.Door1 || _keyInventory.hasDoor2Key && _keyInventory.Door2|| _keyInventory.hasDoor3Key && _keyInventory.Door3 || _keyInventory.hasDoor4Key && _keyInventory.Door4)
+            if (_keyInventory.hasDoor1Key && _keyInventory.Door1 )
             {
             
                     OpenDoor();
       
             }
 
-            else
+            else if (_keyInventory.hasDoor2Key && _keyInventory.Door2)
             {
-              
+                OpenDoor(); 
+            }
+            else if(_keyInventory.hasDoor3Key && _keyInventory.Door3)
+            {
+                OpenDoor(); 
             }
         }
         public void OpenDoor()

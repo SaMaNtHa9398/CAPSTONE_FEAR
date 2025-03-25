@@ -45,6 +45,7 @@ TagManager:
   - Miche
   - player
   - Medea
+  - Audio
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,8 @@ public class ClickButton : MonoBehaviour
 
     public event ClickEvent onClick;
 
+    private bool isClicked = false;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -25,25 +27,23 @@ public class ClickButton : MonoBehaviour
         myTP = transform.position;
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-
-    }
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         if (myLogic.player)
         {
             ClickedColour();
             transform.position = new Vector3 (myTP.x, myTP.y, -21.25f);
             onClick.Invoke(myNumber);
+            isClicked = true; 
         }
 
     }
-    private void OnMouseUp()
+    public void OnMouseUp()
     {
         UnClickedColour();
-        transform.position = new Vector3 (myTP.x, myTP.y, myTP.z);
+        //transform.position = new Vector3 (myTP.x, myTP.y, myTP.z);
+        transform.position = myTP;
+        isClicked = false; 
     }
     public void ClickedColour()
     {

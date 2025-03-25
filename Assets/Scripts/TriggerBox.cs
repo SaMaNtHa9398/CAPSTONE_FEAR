@@ -8,35 +8,51 @@ public class TriggerBox : MonoBehaviour
     public GameObject haunt;
     public AudioSource Sound; 
     public string triggertag;
+    BoxCollider BOX;
+    private void Awake()
+    {
+        Sound = GetComponent<AudioSource>();
+        BOX = GetComponent<BoxCollider>();
+    }
     private void Start()
     {
-        haunt.SetActive(false); 
+        if(haunt)
+        {
+            haunt.SetActive(false);
+        }
+        else
+        {
+            haunt = null; 
+        }
+     
     }
     private void OnTriggerEnter(Collider other)
     {
        //RobotLogicPuzzle2Easy robot =  Robot.GetComponent<RobotLogicPuzzle2Easy>();
         Debug.Log("OnTriggerEnter called with: " + other.gameObject.name);
+
         if (other.gameObject.CompareTag(triggertag))
         {
-            if(haunt != null) haunt.SetActive(true);
-            if (Sound != null) Sound.Play();
+            if (haunt != null)
+            {
+                haunt.SetActive(true);
+            }
+
+            if (Sound != null)
+            {
+                Sound.Play();
+            }
         }
-        else
-        {
-            haunt.SetActive(false); 
-            return;
-        }
+
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider min)
     {
         //RobotLogicPuzzle2Easy robot =  Robot.GetComponent<RobotLogicPuzzle2Easy>();
-        Debug.Log("OnTriggerEnter called with: " + other.gameObject.name);
-        if (other.gameObject.CompareTag(triggertag))
+        Debug.Log("OnTriggerExit called with: " + min.gameObject.name);
+        if (min.gameObject.CompareTag(triggertag))
         {
-          
-          haunt.SetActive(false);
-            Sound.Stop(); 
-            Destroy(this); 
+        
+            Destroy(gameObject); 
             return;
         }
     }

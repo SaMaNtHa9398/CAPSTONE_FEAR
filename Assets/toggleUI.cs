@@ -22,8 +22,8 @@ public class toggleUI : MonoBehaviour
             isUIActive = !isUIActive; // Toggle UI state
 
             UItoggleon.SetActive(isUIActive);
-            Cursor.lockState = isUIActive ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = isUIActive;
+           // Cursor.lockState = isUIActive ? CursorLockMode.None : CursorLockMode.Locked;
+           // Cursor.visible = isUIActive;
         }
     }
 }

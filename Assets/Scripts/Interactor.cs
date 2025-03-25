@@ -74,6 +74,11 @@ public class Interactor : MonoBehaviour
     public string message;
 
     public UnityEvent onInteraction;
+    AudioManager audiomanager;
+    private void Awake()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     private void Start()
     {
@@ -82,7 +87,8 @@ public class Interactor : MonoBehaviour
     }
     public void Interact()
     {
-        onInteraction.Invoke(); 
+        onInteraction.Invoke();
+        audiomanager.PlaySfx(audiomanager.CollectTrinkets);
     }
     public void DisableOutline()
     {

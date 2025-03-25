@@ -34,12 +34,12 @@ public class Flashlight : MonoBehaviour
         if (isFlashlightOn)
         {
             // Play the "turn on" sound
-            //turnOnSound.Play();
+           // turnOnSound.Play();
         }
         else
         {
             // Play the "turn off" sound
-            //turnOffSound.Play();
+           // turnOffSound.Play();
         }
 
     }

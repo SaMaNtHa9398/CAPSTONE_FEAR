@@ -7,66 +7,126 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-   
-    public Text textDisplay;
-    public string[] sentences;
+
+    /* public TextMeshProUGUI textDisplay;
+     public string[] sentences;
+
+     private int index;
+     public float typingSpeed;
+
+     public GameObject continueButton, ContinueButton2;
+     public GameObject CollectablesPanel;
+
+    void Start()
+     {
+         if (sentences.Length > 0)
+         {
+             StartCoroutine(Type()); // Start typing the first sentence
+         }
+     }
+
+
+     IEnumerator Type()
+     {
+         foreach (char letter in sentences[index].ToCharArray())
+         {
+             textDisplay.text += letter;
+
+             yield return new WaitForSeconds(typingSpeed);
+         }
+
+
+     }
+
+
+
+     private void Update()
+     {
+
+         if (Input.GetKeyDown(KeyCode.R) && textDisplay.text == sentences[index])
+         {
+             NextSentence(); 
+         }
+
+     }
+
+     public void NextSentence()
+     {
+
+
+         if(index <sentences.Length -1 )
+         {
+             index++;
+
+             textDisplay.text = " ";
+             StartCoroutine(Type());
+         }else
+         {
+             textDisplay.text = " ";
+
+                // continueButton.SetActive(false);
+
+
+
+         }
+
+     }*/
+
+
+    public TextMeshProUGUI textComponent;
+    public string[] lines;
+    public float textSpeed;
 
     private int index;
-    public float typingSpeed;
-    
-    public GameObject continueButton, ContinueButton2;
-    public GameObject CollectablesPanel;
 
-   void Start()
+    private void Start()
     {
-       
+        textComponent.text = string.Empty;
+        StartDialogue(); 
     }
 
-
-    IEnumerator Type()
-    {
-        foreach (char letter in sentences[index].ToCharArray())
-        {
-            textDisplay.text += letter;
-
-            yield return new WaitForSeconds(typingSpeed);
-        }
-      
-        
-    }
-  
-   
-        
     private void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.F) && textDisplay.text == sentences[index])
+        if(Input.GetKeyDown(KeyCode.R))
         {
-            continueButton.SetActive(true);
+            if(textComponent.text == lines[index])
+            {
+                NextLine(); 
+            } 
+            else
+            {
+                StopAllCoroutines();
+                textComponent.text = lines[index]; 
+            }
         }
-     
     }
-    
-    public void NextSentence()
-    {
-       
 
-        if(index <sentences.Length -1 )
+    void StartDialogue()
+    {
+        index = 0;
+        StartCoroutine(TypeLine()); 
+    }
+
+    IEnumerator TypeLine()
+    {
+        foreach(char c in lines[index].ToCharArray())
+        {
+            textComponent.text += c;
+            yield return new WaitForSeconds(textSpeed); 
+        }
+    }
+
+    void NextLine()
+    {
+        if(index < lines.Length -1)
         {
             index++;
-          
-            textDisplay.text = " ";
-            StartCoroutine(Type());
-        }else
-        {
-            textDisplay.text = " ";
-          
-                continueButton.SetActive(false);
-                
-            
-           
+            textComponent.text = string.Empty;
+            StartCoroutine(TypeLine()); 
         }
-
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
-
 }

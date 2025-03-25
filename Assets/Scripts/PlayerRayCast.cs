@@ -7,7 +7,7 @@ public class PlayerRayCast : MonoBehaviour
     public Transform headPos;
     public int length;
 
-
+    private ClickButton clickButton; 
 
     private void Update()
     {
@@ -30,7 +30,26 @@ public class PlayerRayCast : MonoBehaviour
                     {
                        // hit.transform.GetComponent<doo>().OpenClose();
                     }*/
+
                 }
+                else if(Input.GetMouseButtonDown(2))
+                {
+                    ClickButton clickObj = hit.collider.GetComponent<ClickButton>(); 
+                    if(clickObj != null)
+                    {
+                        clickObj.OnMouseDown();
+                        clickButton = clickObj; 
+                    }
+                }
+                if(Input.GetMouseButtonUp(2))
+                {
+                    if (clickButton != null)
+                    {
+                        clickButton.OnMouseUp();
+                        clickButton = null; 
+                    }
+                }
+
             }
         }
 

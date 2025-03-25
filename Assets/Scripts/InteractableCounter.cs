@@ -16,11 +16,19 @@ public class InteractableCounter : MonoBehaviour
     //public bool ConditionMeet = false;
     public GameObject TriggerArea;
     public DescructibleWall wall;
+   
+    AudioManager audiomanager;
+    private void Awake()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>(); 
+    }
     private void Start()
     {
         //door.SetActive(true);
         //interactionCounterTurnactive.SetActive(false);
         TriggerArea.SetActive(true);
+        
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -44,17 +52,17 @@ public class InteractableCounter : MonoBehaviour
 
         if (interactionsNum == requiredInteractions)
         {
-           
             
+            audiomanager.PlaySfx(audiomanager.CorrectSound); 
             TriggerArea.SetActive(false);
             interactionsNum = requiredInteractions;
-            wall.Open();
-           
+            wall.Open(); 
         }
 
         if(interactionsNum >= requiredInteractions)
         {
-            interactionsNum = requiredInteractions; 
+            interactionsNum = requiredInteractions;
+            
         }
     }
 }

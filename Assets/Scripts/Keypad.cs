@@ -13,15 +13,21 @@ public class Keypad : MonoBehaviour
     public int passcodelimit;
     //public GameObject door; 
     public TextMeshPro passcodeText;
-     public DescructibleWall wall; 
+     public DescructibleWall wall;
+    public AudioClip wrong;
+    public AudioClip clear;
+    public AudioClip correct; 
     //[Header("Animation")]
    
    // public Animator doorAnim;
     //[SerializeField] private string openAnimationName = "DoorOpen";
     [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip correctSound;
-    public AudioClip wrongSound;
+
+    AudioManager audiomanager;
+    private void Awake()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     private void Start()
     {
        // doorAnim = gameObject.GetComponent<Animator>();
@@ -57,25 +63,28 @@ public class Keypad : MonoBehaviour
 
     public void Clear()
     {
-        passcodeText.text = "";
-        passcodeText.color = Color.white;
+        
+       passcodeText.text = "";
+       // passcodeText.color = Color.white;
     }
 
     private void Enter()
     {
         if (passcodeText.text == passcode)
         {
-           // door.SetActive(false); 
+            // door.SetActive(false); 
             //doorAnim.Play(openAnimationName, 0, 0.0f);
-            passcodeText.color = Color.green;
+            //passcodeText.color = Color.green;
+            audiomanager.PlaySfx(audiomanager.CorrectSound);
             StartCoroutine(waitAndClear());
             wall.Open();
 
         }
         else
         {
-            passcodeText.color = Color.red;
+           // passcodeText.color = Color.red;
             StartCoroutine(waitAndClear());
+            audiomanager.PlaySfx(audiomanager.WrongSound);
         }
 
     }

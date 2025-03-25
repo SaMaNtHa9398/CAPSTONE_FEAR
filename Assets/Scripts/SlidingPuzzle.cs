@@ -16,8 +16,12 @@ public class SlidingPuzzle : MonoBehaviour
     public bool ConditionMeet = false;
     [SerializeField] private LayerMask puzzlePieceLayer;
     public DescructibleWall wall;
-    
+    AudioManager audiomanager;
     // Create the game setup with size x size pieces.
+    private void Awake()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     private void CreateGamePieces(float gapThickness)
     {
         // This is the width of each tile.
@@ -68,7 +72,7 @@ public class SlidingPuzzle : MonoBehaviour
         // Shuffle the pieces immediately after they are created
         Shuffle();
         shuffling = true; // Ensure shuffling happens at the start
-        ConditionMeet = false;
+        //ConditionMeet = false;
 
 
     }
@@ -96,7 +100,10 @@ public class SlidingPuzzle : MonoBehaviour
         {
             // Puzzle completed, trigger any actions here
             Debug.Log("Puzzle is solved!");
-            ConditionMeet = true; // Set your condition for opening the door or other actions
+            //ConditionMeet = true; // Set your condition for opening the door or other actions
+            wall.Open();
+            audiomanager.PlaySfx(audiomanager.CorrectSound);
+
         }
 
         // If the puzzle isn't solved, handle shuffling and user interactions
@@ -106,14 +113,14 @@ public class SlidingPuzzle : MonoBehaviour
         }
         if (CheckCompletion())
         {
-            ConditionMeet = true;  // Mark the puzzle as complete when all pieces are in place
+           
             shuffling = false;     // Ensure the puzzle is no longer in a shuffling state
         
         }
-        if(ConditionMeet == true)
-        {
-            wall.Open(); 
-        }
+        //if(ConditionMeet == true)
+       // {
+          //  wall.Open(); 
+       // }
 
 
        

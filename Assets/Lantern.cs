@@ -15,6 +15,12 @@ public class Lantern : MonoBehaviour
     public float batteryhealth;
     private bool canRecharge = false;
     // Start is called before the first frame update
+    AudioManager audiomanager;
+
+    private void Awake()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     void Start()
     {
         m_light = GetComponent<Light>(); 
@@ -55,12 +61,15 @@ public class Lantern : MonoBehaviour
             {
                 m_light.intensity = maxBrightness; // Instantly full
                 Debug.Log("Lucky! Full recharge!");
+
+                audiomanager.PlaySfx(audiomanager.startingMatch);
             }
             else // 80% chance to recharge a small amount
             {
                 float randomBatteryBoost = Random.Range(0.1f, 0.3f); // Small recharge between 0.1 - 0.3
                 m_light.intensity = Mathf.Clamp(m_light.intensity + randomBatteryBoost, minBrightness, maxBrightness);
                 Debug.Log("Partial recharge: " + randomBatteryBoost);
+               // audiomanager.PlaySfx(audiomanager.BurningFlame);
             }
 
         }
